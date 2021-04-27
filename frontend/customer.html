@@ -48,6 +48,7 @@
       }
   </style>
   <body onload="firstFunc()">
+    <!-- <body> -->
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
    <!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script> -->
@@ -62,17 +63,6 @@
               <div class="row">
                 <div class="col-sm">
                   <select class="form-select" name="dietTag1" id="dietTag1" aria-label="Default select example">
-                    <option value=""></option>
-                    <option value="vegan">vegan</option>
-                    <option value="vegetarian">vegetarian</option>
-                    <option value="gluten-free">gluten-free</option>
-                    <option value="nut-free">nut-free</option>
-                    <option value="contains-meat">contains-meat</option>
-                    <option value="pescetarian">pescetarian</option>
-                  </select>
-                </div>
-                <div class="col-sm">
-                  <select class="form-select" name="dietTag2" id="dietTag1" aria-label="Default select example">
                     <option value=""></option>
                     <option value="vegan">vegan</option>
                     <option value="vegetarian">vegetarian</option>
@@ -104,12 +94,18 @@
               <input type="text" id="rname" name="rname"><br><br>
             </div>
             <div class="row-sm row-box"style="height: 15%;background-color: #e69900;">
-              <label for="lname">Dish Name</label>
+              <label for="dname">Dish Name</label>
               <input type="text" id="dname" name="dname"><br><br>
             </div>
             <div class = "row-sm">
-              <button type="button" class="btn btn-secondary" onclick="foodFilter()" style="background-color: black;">Submit</button>
+              <button onclick="getFiltered()" type="button" class="btn btn-secondary" onclick="foodFilter()" style="background-color: black;">Submit</button>
+              
              <!-- <input type="submit" value="Submit"> -->
+            </div>
+
+            <!-- results div -->
+            <div id="filterResults" class="row-sm row-box" hidden="true">
+              
             </div>
       </div>
     </form>

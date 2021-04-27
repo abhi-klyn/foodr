@@ -1,36 +1,27 @@
 function firstFunc(){
- 	document.getElementById("yolo").innerHTML = "Hello World!";
+    var trial = sessionStorage.getItem("emailIDItem");
+    console.log('trial : ', trial);
+    console.log("YAY!")	
 }
 
 function secondFunc(){
-	window.location.href='./customer.html';
+    var trial = document.getElementById('trial').innerHTML;
+    sessionStorage.setItem("trialItem", trial);
+    window.location.href='./customer.html';
 }
 
-function populate() {
-    
+function getFiltered() {
+    div = document.getElementById('filterResults');
+    div.innerHTML = "";
+    console.log("Inside getFiltered");
+    document.getElementById("filterResults").hidden = false;
 
+    // get data from the search function and display below
     var fname = "New Pita bread";
     var price = "50.00";
     var qty = "3";
-    var str = '<div class="row-sm row"><h4 id="dname">'+fname+'</h4><h5 id="price">'+price+'</h5><h5 id="qty">Quantity : '+qty+'</h5></div>',
-
-    var additionalParams = {headers: {
-        'Content-Type':"application/json"
-    }};
-
-    var params = {"Content-Type" : "application/json" };
-    var body = {"username":test,  "emailID":test1};
-
-
-    apigClient.rootPost(params,body,additionalParams).then(function(res){
-          console.log(res);
-            if(res.status==200){
-            console.log(res);
-                document.getElementById('outputXX').value=res;
-
-        }
-    });
-
+    var str = '<div class="row-sm row"><h4 id="dname">'+fname+'</h4><h5 id="price">'+price+'</h5><h5 id="qty">Quantity : '+qty+'</h5></div>';
+    div.insertAdjacentHTML('beforeend', str);
 }
 
 function add_item(objButton) {
@@ -62,7 +53,13 @@ function foodFilter(){
             }
     });
 
+}
 
+function onLogin(){
+    var emailID = document.getElementById('email-address').value;
+    // console.log('emailID : ', emailID);
+    sessionStorage.setItem("emailIDItem", emailID);
+    window.location.href='./customer.html';
 
 }
 

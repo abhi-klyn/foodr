@@ -1,0 +1,70 @@
+<html lang="en">
+  <head>
+    <title>Login Page</title>
+      <script src="render.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <style type="text/css">
+      .center {
+        background: #ff9999;
+        margin: auto;
+        width: 60%;
+        padding: 100px;
+        /*margin: 0 auto;*/
+        /*position: absolute;*/
+        /*top: 50%;*/
+        /*-ms-transform: translateY(-50%);
+        transform: translateY(-50%); 
+        align-items: center;*/
+       }
+       .child {
+        width: 30%;
+        height: 20%;
+        background-color: #ffc34d;
+        /* Center vertically and horizontally */
+        position: absolute;
+        top: 30%;
+        left: 35%;
+        margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
+        text-align: center;
+        border-radius: 25px;
+        padding:25px;
+      }
+
+      .black-button {
+        background-color: black;
+        color: white;
+      }
+
+  </style>
+
+  <body>
+
+    <main role="main" class="container">
+        <div class="child"> 
+          <div class="row-sm" style="height: 35%;">
+            <label for="email-address">Email</label>
+            <input type="email" id="email-address" name="email-address" style="border-radius: 25px; width:60%;"><br><br>
+          </div>
+          <div class = "row-sm" style="height: 25%;">
+              <button onclick="onLogin()" type="button" class="btn btn-secondary black-button">Enter</button>
+          </div>
+        </div>
+          
+          
+         <!--  <form method="POST" action="/food">
+              <input type="submit" value="Go Back to Food Selection Page ">
+          </form>
+
+          <form method="POST" action="/customer">
+              <input type="submit" value="Go Home">
+          </form> -->
+    </main>
+
+
+  </body>
+</html>
