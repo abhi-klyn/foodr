@@ -54,14 +54,15 @@ function foodFilter(){
     apigClient.searchPost(params,body,additionalParams).then(function(res){
           console.log(res);
           if(res.status==200){
-            console.log(res);
-            document.getElementById('outputXX').value=res;
-
+            console.log('res : ', res);
+            // document.getElementById('outputXX').value=res;
+            document.getElementById("outputXX").hidden = false;
+          }
+          else{
+            console.log("FAILURE");
           }
        });
-
 }
-
 
 
 function onLogin(){
