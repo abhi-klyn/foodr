@@ -1,4 +1,29 @@
+
 import pymysql
+import json
+'''
+# rm -rf ~/Desktop/function.zip
+# zip -r9 ~/Desktop/function.zip .
+endpoint = 'fooddb.ccykv42klvyg.us-east-1.rds.amazonaws.com'
+username = 'admin'
+password = 'Columbia123'
+database_name = 'food'
+
+#Connection
+connection = pymysql.connect(host=endpoint, user=username,
+    passwd=password, db=database_name)
+
+def lambda_handler(event, context):
+    cursor = connection.cursor()
+    cursor.execute("SELECT * from food")
+
+    rows = cursor.fetchall()
+
+    for row in rows:
+        print("{0} {1}".format(row[0], row[1]))
+
+import pymysql
+'''
 import sys
 
 # rm -rf ~/Desktop/function.zip
@@ -13,14 +38,68 @@ connection = pymysql.connect(host=endpoint, user=username,
     passwd=password, db=database_name)
 
 def lambda_handler(event, context):
-    cursor = connection.cursor()
-    cursor.execute('SELECT * from foodTable')
+    #body = event['body']
+    print(event)
+    print('\n')
 
-    rows = cursor.fetchall()
+    body = json.loads(event['body'])
+    #body = event['body']
+    print('event')
+    #print(event)
+    #print('\n')
 
-    for row in rows:
-        print("{0} {1}".format(row[0], row[1]))
 
+
+    rName = body['rName']
+    #rName = body['rName'] if body['rName']!="" else None
+    #rName = 'zaad'
+
+    foodName = body['foodName']
+
+    #foodName = body.get('foodName',None)
+    #foodName = body['foodName'] if body['foodName']!="" else None
+    #foodName = None
+
+    tag = body['tag']
+    #tag = body.get('tag',None)
+    #tag = body['tag'] if body['tag']!="" else None
+    #tag = None
+
+    calories = int(body['calories']) if body['calories']!="" else None
+    #calories=None
+
+    #calories = body['calories']
+
+    res = aggregateResults(rName,foodName,tag,calories)
+    print('results',aggregateResults)
+
+    for indx in range(len(res)):
+        res[indx][3] = ','.join([x for x in res[indx][3]])
+        res[indx][2] = float(res[indx][2])
+
+
+    for i in res:
+        print(i)
+
+    response = {}
+    response['statusCode']=200
+    response['headers']={}
+    response['headers']['Content-Type'] = 'application/json'
+    response['headers']['Access-Control-Allow-Origin'] = '*'
+
+
+    respDict = {}
+    respDict['solutions'] = res
+
+    response['body'] = json.dumps(respDict)
+
+    print(response)
+    print('\n')
+    return response
+
+    #print(aggregateResults(rName='zaad'))
+    #print(aggregateResults(rName='burg'))
+    
 # Runs the Query and returns the result
 def runQuery(query):
     try:
@@ -47,10 +126,10 @@ def searchFoodByRestaurantName(rName):
 def aggregateResults(rName = None, foodName = None, tag = None, calories = None):
     foodIdSet = set()
     results = []
-    if rName:
+    if rName!="":
         result = searchFoodByRestaurantName(rName)
         foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
-    if foodName:
+    if foodName!="":
         result = searchFoodByName(foodName)
         foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
     for foodId in foodIdSet:
@@ -73,6 +152,3 @@ def getIngredientList(foodId):
     for row in rows:
         results.append(row[0])
     return results
-
-print(aggregateResults(rName='zaad'))
-print(aggregateResults(rName='burg'))
