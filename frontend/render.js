@@ -29,7 +29,7 @@ function add_item(objButton) {
 }
 
 function foodFilter(){
-    var dname = document.getElementById('dname').value;
+    var foodname = document.getElementById('dname').value;
     var rname = document.getElementById('rname').value;
     var dietTag1 = document.getElementById('dietTag1').value;
     var calories = document.getElementById('max-calories').value;
@@ -43,17 +43,21 @@ function foodFilter(){
     }};
 
     var params = {"Content-Type" : "application/json" };
-    var body = {"username":dname,  "emailID":rname};
-    // var body = {"rName":rname, "foodName":dname,"tag":"","calories":""};
-    apigClient.rootPost(params,body,additionalParams).then(function(res){
+    // var body = {"username":dname,  "emailID":rname};
+    var body = {"foodname":foodname, "rName":rname, "tag":tag,"calories":calories};
+
+    apigClient.searchPost(params,body,additionalParams).then(function(res){
           console.log(res);
-            if(res.status==200){
-                console.log('res : ', res);
-                document.getElementById('outputXX').value=res;
-            }
-    });
+          if(res.status==200){
+            console.log(res);
+            document.getElementById('outputXX').value=res;
+
+          }
+       });
 
 }
+
+
 
 function onLogin(){
     var emailID = document.getElementById('email-address').value;
