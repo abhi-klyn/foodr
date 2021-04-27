@@ -144,6 +144,7 @@ def getFoodDetails(foodId):
         result.append(row[2])
         result.append(row[3])
         result.append(getIngredientList(row[0]))
+        result.append(row[0])
     return result
 
 def getIngredientList(foodId):
