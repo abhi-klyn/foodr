@@ -29,9 +29,9 @@ function add_item(objButton) {
 }
 
 function foodFilter(){
-    var foodname = document.getElementById('dname').value;
-    var rname = document.getElementById('rname').value;
-    var dietTag1 = document.getElementById('dietTag1').value;
+    var foodName = document.getElementById('dname').value;
+    var rName = document.getElementById('rname').value;
+    var tag = document.getElementById('dietTag1').value;
     var calories = document.getElementById('max-calories').value;
 
     var apigClient = apigClientFactory.newClient(
@@ -42,10 +42,15 @@ function foodFilter(){
         'Content-Type':"application/json"
     }};
 
+    console.log(foodName);
+    console.log(rName);
+    console.log(tag);
+    console.log(calories);
+
     var params = {"Content-Type" : "application/json" };
     // var body = {"username":dname,  "emailID":rname};
-    var body = {"foodname":foodname, "rName":rname, "tag":tag,"calories":calories};
-
+    var body = {"foodName":foodName, "rName":rName, "tag":tag,"calories":calories};
+    console.log('body : ', body);
     apigClient.searchPost(params,body,additionalParams).then(function(res){
           console.log(res);
           if(res.status==200){
