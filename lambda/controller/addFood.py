@@ -21,17 +21,17 @@ def lambda_handler(event, context):
     for row in rows:
         print("{0} {1}".format(row[0], row[1]))
 
-def runQuery(query):
+def insertQuery(query):
     try:
-        print(query)
         cursor = connection.cursor()
         cursor.execute(query)
-        return cursor.fetchall()
+        connection.commit()
+        return True
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
 def addToCart(foodId, emailId):
     if not foodId or not emailId:
         return False
-    rows = runQuery('INSERT INTO orders(email, foodid) VALUES (\'{}\', \'{}\')'.format(emailId, foodId))
+    insertQuery('INSERT INTO orders(email, foodid) VALUES (\'{}\', \'{}\')'.format(emailId, foodId))
 addToCart(2, 'abhi.klyn@gmail.com')
