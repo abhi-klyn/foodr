@@ -1,0 +1,71 @@
+<html lang="en">
+  <head>
+    <title>Error Page</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <style type="text/css">
+      .center {
+        background: #ff9999;
+        margin: auto;
+        width: 60%;
+        padding: 100px;
+        /*margin: 0 auto;*/
+        /*position: absolute;*/
+        /*top: 50%;*/
+        /*-ms-transform: translateY(-50%);
+        transform: translateY(-50%); 
+        align-items: center;*/
+       }
+       .child {
+        width: 60%;
+        height: 40%;
+        background-color: #ffc34d;
+        /* Center vertically and horizontally */
+        position: absolute;
+        top: 25%;
+        left: 25%;
+        margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
+        text-align: center;
+        border-radius: 25px;
+      }
+
+      .black-button {
+        background-color: black;
+        color: white;
+      }
+
+  </style>
+
+  <body>
+
+    <main role="main" class="container">
+        <div class="child"> 
+          <div class="row-sm" style="height: 15%;">
+            <h1>Whoops! Something went wrong.</h1>
+          </div>
+          <div class="row-sm" style="height: 15%;"><h3>Please Retry</h3></div>
+          <div class = "row-sm" style="height: 15%;">
+              <button type="button" class="btn btn-secondary black-button">Go Home</button>
+          </div>
+          <div class = "row-sm" style="height: 15%;">
+              <button type="button" class="btn btn-secondary black-button">Go Back to Food Selection Page</button>
+          </div>
+        </div>
+          
+          
+         <!--  <form method="POST" action="/food">
+              <input type="submit" value="Go Back to Food Selection Page ">
+          </form>
+
+          <form method="POST" action="/customer">
+              <input type="submit" value="Go Home">
+          </form> -->
+    </main>
+
+
+  </body>
+</html>

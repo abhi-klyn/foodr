@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Customer page</title>
+    <script src="render.js"></script>
+  </head>
+  <style type="text/css">
+    .child {
+        width: 60%;
+        height: 60%;
+        /*background-color: #ff9999;*/
+        /* Center vertically and horizontally */
+        position: absolute;
+        top: 10%;
+        left: 25%;
+        margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
+        text-align: center;
+        border-radius: 25px;
+      }
+
+      .row-box {
+        text-align: center; 
+        margin: 10px;
+       /* height: 33%;*/
+        border-radius: 25px;
+         border-style: solid;
+        border-color: black;
+        padding: 10px;
+      }
+
+      .row-heading {
+        text-align: center; 
+        background:#ffcc66;
+        height: 20%;
+        border-radius: 25px;
+        border-style: solid;
+        border-color: black;
+      }
+      .button-submit{
+
+      }
+  </style>
+  <body onload="firstFunc()">
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+   <!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script> -->
+
+    <form>
+      <div class="child">
+          <div class="row-sm">
+            <h1 style="color: black;">Pick your filters</h1>
+          </div>
+            <div class="row-sm row-box" style="height: 30%;background-color:#ffd480">
+              <label for="dietTags">Dietary restrictions</label>
+              <div class="row">
+                <div class="col-sm">
+                  <select class="form-select" name="dietTag1" id="dietTag1" aria-label="Default select example">
+                    <option value=""></option>
+                    <option value="vegan">vegan</option>
+                    <option value="vegetarian">vegetarian</option>
+                    <option value="gluten-free">gluten-free</option>
+                    <option value="nut-free">nut-free</option>
+                    <option value="contains-meat">contains-meat</option>
+                    <option value="pescetarian">pescetarian</option>
+                  </select>
+                </div>
+                <div class="col-sm">
+                  <select class="form-select" name="dietTag2" id="dietTag1" aria-label="Default select example">
+                    <option value=""></option>
+                    <option value="vegan">vegan</option>
+                    <option value="vegetarian">vegetarian</option>
+                    <option value="gluten-free">gluten-free</option>
+                    <option value="nut-free">nut-free</option>
+                    <option value="contains-meat">contains-meat</option>
+                    <option value="pescetarian">pescetarian</option>
+                  </select>
+                </div>
+                <div class="col-sm">
+                  <select class="form-select" name="dietTag3" id="dietTag1" aria-label="Default select example">
+                    <option value=""></option>
+                    <option value="vegan">vegan</option>
+                    <option value="vegetarian">vegetarian</option>
+                    <option value="gluten-free">gluten-free</option>
+                    <option value="nut-free">nut-free</option>
+                    <option value="contains-meat">contains-meat</option>
+                    <option value="pescetarian">pescetarian</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row-sm row-box" style="height: 15%; background-color:#ffc34d">
+              <label for="max-calories">Max calories</label>
+              <input type="number" step="10" id="max-calories" name="max-calories"><br><br>
+            </div>
+            <div class="row-sm row-box"style="height: 15%;background-color: #ffb31a;">
+              <label for="rname">Restaurant Name</label>
+              <input type="text" id="rname" name="rname"><br><br>
+            </div>
+            <div class="row-sm row-box"style="height: 15%;background-color: #e69900;">
+              <label for="lname">Dish Name</label>
+              <input type="text" id="dname" name="dname"><br><br>
+            </div>
+            <div class = "row-sm">
+             <!--  <button type="button" class="btn btn-secondary" style="background-color: black;">Submit</button> -->
+             <input type="submit" value="Submit">
+            </div>
+      </div>
+    </form>
+
+  
+      
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
