@@ -1,0 +1,65 @@
+<html lang="en">
+  <head>
+    <title>Login Page</title>
+      <script src="render.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/axios/dist/axios.standalone.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/components/hmac.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/components/enc-base64.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/url-template/url-template.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/lib/apiGatewayCore/utils.js"></script>
+      <script type="text/javascript" src="./assets/js/sdk/apigClient.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <style type="text/css">
+      .center {
+        background: #ff9999;
+        margin: auto;
+        width: 60%;
+        padding: 100px;
+       }
+       .child {
+        width: 30%;
+        height: 20%;
+        background-color: #ffc34d;
+        position: absolute;
+        top: 30%;
+        left: 35%;
+        margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
+        text-align: center;
+        border-radius: 25px;
+        padding:25px;
+      }
+
+      .black-button {
+        background-color: black;
+        color: white;
+      }
+
+  </style>
+  <body onload="finalCart()">
+
+    <main role="main" class="container">
+        <div class="child"> 
+          <p>This is your cart</p>
+          <div id="cartDiv">
+            
+          </div>
+          <button>Confirm</button>
+
+          
+        </div>         
+    </main>
+
+
+  </body>
+</html>

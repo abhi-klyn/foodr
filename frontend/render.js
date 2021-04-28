@@ -1,28 +1,20 @@
-function firstFunc(){
-    var trial = sessionStorage.getItem("emailIDItem");
-    console.log('trial : ', trial);
-    console.log("YAY!")	
-}
+// function firstFunc(){
+//     var trial = sessionStorage.getItem("emailIDItem");
+//     console.log('trial : ', trial);
+//     console.log("YAY!")	
+// }
 
-function secondFunc(){
-    var trial = document.getElementById('trial').innerHTML;
-    sessionStorage.setItem("trialItem", trial);
+// function secondFunc(){
+//     var trial = document.getElementById('trial').innerHTML;
+//     sessionStorage.setItem("trialItem", trial);
+//     window.location.href='./customer.html';
+// }
+function onLogin(){
+    var emailID = document.getElementById('email-address').value;
+    // console.log('emailID : ', emailID);
+    sessionStorage.setItem("emailIDItem", emailID);
     window.location.href='./customer.html';
 }
-
-// function getFiltered() {
-//     div = document.getElementById('filterResults');
-//     div.innerHTML = "";
-//     console.log("Inside getFiltered");
-//     document.getElementById("filterResults").hidden = false;
-
-//     // get data from the search function and display below
-//     var fname = "New Pita bread";
-//     var price = "50.00";
-//     var qty = "3";
-//     var str = '<div class="row-sm row"><h4 id="dname">'+fname+'</h4><h5 id="price">'+price+'</h5><h5 id="qty">Quantity : '+qty+'</h5></div>';
-//     div.insertAdjacentHTML('beforeend', str);
-// }
 
 function onFilter(){
     console.log("Inside onFilter")
@@ -38,11 +30,6 @@ function onFilter(){
     var additionalParams = {headers: {
         'Content-Type':"application/json"
     }};
-
-    // console.log(foodName);
-    // console.log(rName);
-    // console.log(tag);
-    // console.log(calories);
 
     var params = {"Content-Type" : "application/json" };
     var body = {"foodName":foodName, "rName":rName, "tag":tag,"calories":calories};
@@ -87,21 +74,13 @@ function foodFilter(){
         console.log(typeof foodName);
         console.log(typeof price);
         console.log(typeof foodid);
-        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +rName+ '</h6><h6 class="card-subtitle mb-2 text-muted">' +price+ '</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         console.log('about to add');
         div.insertAdjacentHTML('beforeend', str);
     }
 }
 
-function onLogin(){
-    var emailID = document.getElementById('email-address').value;
-    // console.log('emailID : ', emailID);
-    sessionStorage.setItem("emailIDItem", emailID);
-    window.location.href='./customer.html';
-}
-
 function addItem(objButton){
-    // alert(objButton.value);
     var foodId = objButton.value;
     var emailId = sessionStorage.getItem('emailIDItem');
 
@@ -128,6 +107,85 @@ function addItem(objButton){
     });
 
 }
+
+function onRestaurantFilter(objButton){
+    // alert(objButton.value);
+    // document.getElementById("restHeading").hidden = false;
+    // document.getElementById("restHeading").innerHTML = rName;
+    console.log("Inside onRestaurantFilter")
+    var rName = objButton.value;
+
+
+    var apigClient = apigClientFactory.newClient(
+        {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
+    );
+
+    var additionalParams = {headers: {
+        'Content-Type':"application/json"
+    }};
+
+    var params = {"Content-Type" : "application/json" };
+    var body = {"foodName":"", "rName":rName, "tag":"","calories":""};
+    console.log('body : ', body);
+    // apigClient.searchPost(params,body,additionalParams).then(function(res){
+    //       console.log(res);
+    //       if(res.status==200){
+    //         console.log('res : ', res);
+    //         console.log(typeof res);
+    //         var myJSON = JSON.stringify(res);
+    //         console.log("json: ", myJSON)
+    //         localStorage.setItem('filteredRestFoodRes', myJSON);
+    //         newr = localStorage.getItem('filteredRestFoodRes');
+    //         console.log('checkNew : ', newr);
+    //         window.location.href='./restaurant.html';            
+    //       }
+
+    // });
+    window.location.href='./restaurant.html';    
+
+}
+
+function restFilter(){
+
+}
+
+function onCheckout(){
+    emailId = sessionStorage.getItem('emailIDItem');
+    var apigClient = apigClientFactory.newClient(
+        {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
+    );
+
+    var additionalParams = {headers: {
+        'Content-Type':"application/json"
+    }};
+
+    var params = {"Content-Type" : "application/json" };
+    var body = {"emailId":emailId};
+    console.log('body : ', body);
+
+    apigClient.checkoutPost(params,body,additionalParams).then(function(res){
+          console.log(res);
+          if(res.status==200){
+            console.log('res : ', res);
+            console.log(typeof res);
+            var myJSON = JSON.stringify(res);
+            console.log("json: ", myJSON)
+            localStorage.setItem('checkoutRes', myJSON);
+            newr = localStorage.getItem('checkoutRes');
+            console.log('checkNew : ', newr);
+            window.location.href='./final.html';            
+          }
+    });
+
+
+}
+
+function finalCart(){
+    alert("finally");
+
+}
+
+
 
 
 
