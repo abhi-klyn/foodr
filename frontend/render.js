@@ -208,7 +208,6 @@ function restFilter(){
         div.insertAdjacentHTML('beforeend', str);
     }
     
-    // add reviews 
 
     newr = localStorage.getItem('reviewsResp');
     res = JSON.parse(newr);
@@ -218,14 +217,9 @@ function restFilter(){
     for (i = 0; i < res.data.review.length; i++) {
         var review = res.data.review[i];
         console.log("i-th review : ", review);
-        // console.log(typeof rName);
-        // console.log(typeof foodName);
-        // console.log(typeof price);
 
-        // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
-        // var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
-        // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
-        var str = '<p>'+review+'</p>';
+        var str = '<div class="card card-rest"><div class="card-body"><p class="card-title">' +review+ '</p></div></div>';
+        // var str = '<p>'+review+'</p>';
         div.insertAdjacentHTML('beforeend', str);
     }
 
@@ -405,6 +399,42 @@ function aswSignUp(){
         }
 
     });
+}
+
+function makeReservation(){
+    var rName = localStorage.getItem('rNameItem').toString();
+    var rTime = document.getElementById('rTime').value.toString();
+    var rDate = document.getElementById('rDate').value.toString();
+    var emailId = localStorage.getItem('emailIdItem');
+
+    console.log(typeof rName);
+    console.log(typeof rTime);
+    console.log(typeof rDate);
+
+    var apigClient = apigClientFactory.newClient({apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"});
+    var params = {"Content-Type" : "application/json" };
+
+
+    var additionalParams = {headers: {'Content-Type':"application/json"}};
+    var body = {"rName":rName,"rTime":rTime,"rDate":rDate,"emailId":emailId};
+    console.log("RESERVATION BODY : ", body);
+
+    
+    apigClient.reservbookingPost(params,body,additionalParams).then(function(res){
+          console.log(res);
+          if(res.status==200){
+            console.log('res : ', res);
+            console.log(typeof res); 
+            console.log("Created reservation"); 
+            // document.querySelector('#custReview').value = ''; 
+            window.location.href='./restaurant.html'; 
+        }
+
+    }); 
+
+
+    console.log("END OF MAKE RESERVATION");
+
 }
 
 

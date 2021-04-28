@@ -311,5 +311,22 @@ apigClientFactory.newClient = function (config) {
         return apiGatewayClient.makeRequest(getreviewPostRequest, authType, additionalParams, config.apiKey);
     };
 
+     apigClient.reservbookingPost = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var reservbookingPostRequest = {
+            verb: 'post'.toUpperCase(),
+            path: pathComponent + uritemplate('/reservbooking').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(reservbookingPostRequest, authType, additionalParams, config.apiKey);
+    };
+
     return apigClient;
 };
