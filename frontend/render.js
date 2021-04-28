@@ -74,7 +74,10 @@ function foodFilter(){
         console.log(typeof foodName);
         console.log(typeof price);
         console.log(typeof foodid);
-        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+
+        var rNameForId = rName.split(" ");
+        rNameForId = rNameForId.join("_");
+        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rNameForId+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         console.log('about to add');
         div.insertAdjacentHTML('beforeend', str);
     }
@@ -111,6 +114,9 @@ function addItem(objButton){
 function onRestaurantFilter(objButton){
     console.log("Inside onRestaurantFilter")
     var rName = objButton.value;
+    rName = rName.split("_");
+    rName = rName.join(" ");
+    console.log('HI : rName : ', rName);
     localStorage.setItem('rNameItem', rName);
 
     var apigClient = apigClientFactory.newClient(
@@ -136,7 +142,6 @@ function onRestaurantFilter(objButton){
             localStorage.setItem('filteredRestFoodResp', myJSON);
             newr = localStorage.getItem('filteredRestFoodResp');
             console.log('checkNew : ', newr);
-
             window.location.href='./restaurant.html';            
           }
 
@@ -282,7 +287,7 @@ function finalCart(){
     }
     console.log('TOTAL : ', total);
     console.log(typeof total);
-    totalStr = '<div class="row" style="text-align:center;">Your total amount is '+total.toString()+'$</div>';
+    totalStr = '<div class="row" style="text-align:center;" style="text-size:12px;">Your total amount is '+total.toString()+'$</div>';
     div.insertAdjacentHTML('beforeend', totalStr);
 
 }
