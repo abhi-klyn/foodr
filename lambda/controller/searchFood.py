@@ -38,44 +38,30 @@ connection = pymysql.connect(host=endpoint, user=username,
     passwd=password, db=database_name)
 
 def lambda_handler(event, context):
-    #body = event['body']
-    print(event)
-    print('\n')
+    #body = json.loads(event['body'])
+    
+    body = event['body']
 
-    body = json.loads(event['body'])
-    #body = event['body']
-    print('event')
-    #print(event)
-    #print('\n')
+    #rName = body['rName']
+    rName = body.get('rName',"")
+    #foodName = body['foodName']
 
-
-
-    rName = body['rName']
-    #rName = body['rName'] if body['rName']!="" else None
-    #rName = 'zaad'
-
-    foodName = body['foodName']
-
-    #foodName = body.get('foodName',None)
-    #foodName = body['foodName'] if body['foodName']!="" else None
+    foodName = body.get('foodName',"")
     #foodName = None
 
     tag = body['tag']
     #tag = body.get('tag',None)
-    #tag = body['tag'] if body['tag']!="" else None
     #tag = None
 
-    calories = int(body['calories']) if body['calories']!="" else None
-    #calories=None
-
+    calories = body.get('calories',"")
+    if calories!="":
+        calories=int(calories)
     #calories = body['calories']
 
     res = aggregateResults(rName,foodName,tag,calories)
-    print('results',aggregateResults)
-
+    print('New', res)
     for indx in range(len(res)):
         res[indx][3] = ','.join([x for x in res[indx][3]])
-        res[indx][2] = float(res[indx][2])
 
 
     for i in res:
@@ -85,21 +71,20 @@ def lambda_handler(event, context):
     response['statusCode']=200
     response['headers']={}
     response['headers']['Content-Type'] = 'application/json'
-    response['headers']['Access-Control-Allow-Origin'] = '*'
-
 
     respDict = {}
     respDict['solutions'] = res
 
     response['body'] = json.dumps(respDict)
-
-    print(response)
-    print('\n')
     return response
 
     #print(aggregateResults(rName='zaad'))
     #print(aggregateResults(rName='burg'))
-    
+'''
+NEW BELOW
+'''
+
+
 # Runs the Query and returns the result
 def runQuery(query):
     try:
@@ -180,7 +165,6 @@ def getFoodByTag(tag):
   if tag == 'pescetarian':
     print('cde', tag)
     return getPescetarianFood()
-
 
 def aggregateResults(rName = None, foodName = None, tag = None, calories = None):
     print(tag)
