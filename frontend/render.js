@@ -62,17 +62,21 @@ function onFilter(){
             var myJSON = JSON.stringify(res);
             console.log("json: ", myJSON)
             localStorage.setItem('filteredFoodRes', myJSON);
+            newr = localStorage.getItem('filteredFoodRes');
+            console.log('checkNew : ', newr);
+            window.location.href='./food.html';            
           }
 
        });
-    window.location.href='./food.html';
+
     //location.replace("./food.html");
 }
 
 // second
 function foodFilter(){
-    res = localStorage.getItem('filteredFoodRes');
-    var res = JSON.parse(res);
+    newr = localStorage.getItem('filteredFoodRes');
+    console.log('checkNew : ', newr);
+    var res = JSON.parse(newr);
     //console.log('checkNew : ', res.data.solutions);
     div = document.getElementById('filterResults');
     // div.innerHTML = "";
