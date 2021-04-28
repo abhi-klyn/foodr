@@ -24,6 +24,9 @@
     <script type="text/javascript" src="./assets/js/sdk/apigClient.js"></script>
   </head>
   <style type="text/css">
+    body {
+      background-image: url('food_bg.jpeg');
+      }
     .parent {
         width: 80%;
         height: 60%;
@@ -40,7 +43,22 @@
         width: 40rem; 
         border-style: solid; 
         border-color: black;
+      }
 
+      .card-rest-review{
+        display: inline-block;
+        background:#ffc34d; 
+        width: 40rem; 
+        border-style: solid; 
+        border-color: black;
+      }
+
+      .card-rest-menu{
+        display: inline-block;
+        background:#ffd480; 
+        width: 40rem; 
+        border-style: solid; 
+        border-color: black;
       }
   </style>
   <body onload="restFilter()">
@@ -53,28 +71,28 @@
 
         <!-- Menu item div -->
         <div id="restMenuDiv" class="row-sm">
-          <h1 id="restHeading" hidden="true">Rest Name here</h1><br><br>
+          <h1 id="restHeading" hidden="true" style="color: white;">Rest Name here</h1><br><br>
           <!-- Need to add more divs dynammically over here to display food items -->
-          <h3>Menu</h3>
+          <h3 style="color: white;">Menu</h3>
         </div>
 
         <!-- Reviews div -->
         <br><br><br>
         <div id="reviewsDiv" class="row-sm">
-          <h3>Reviews</h3>
+          <h3 style="color: white;">Reviews</h3>
           
         </div><br><br><br>
         
         <!-- Add Review div -->
-        <div id="addReviewDiv" class="row-sm">
-          <div class="row-sm row-box"style="height: 15%;background-color: #ffb31a;">
+        <div id="addReviewDiv" class="card-rest row-sm" style="background:#ffc34d;">
+          <div class="row-sm row-box">
             <textarea id="custReview" name="custReview" rows="4" cols="40"></textarea>
             <button onclick="onAddReview()" type="button" class="btn btn-secondary" style="background-color: black;">Add Review</button> 
           </div>
-        </div>
+        </div><br><br>
 
-        <div id="reservationDiv" class="row-sm">
-          <div class="row-sm row-box"style="height: 15%;background-color: #ffb31a;">
+        <div id="reservationDiv" class="card-rest row-sm" style="background:#e69900;">
+          <!-- <div class="row-sm row-box"style="height: 15%;background-color: #e69900;"> -->
             <!-- <form method="post" action="/restaurant/add_reservation">
               <label for="Date">Date</label>
               <input type="date" id="reservation_date" name="reservation_date" required>
@@ -87,9 +105,8 @@
             <label for="rTime">Time</label>
             <input type="time" id="rTime" name="rTime"><br><br>
             <button onclick="makeReservation()" type="button" class="btn btn-secondary" style="background-color: black;">Make a Reservation</button> 
-          </div>
+          <!-- </div> -->
         </div>
-
 
         <div class="row-sm" style="padding: 20px">
           <button onclick="onCheckout()" type="button" class="btn btn-secondary" style="background-color: black;">Checkout</button> 

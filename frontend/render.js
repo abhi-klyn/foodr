@@ -143,7 +143,7 @@ function onRestaurantFilter(objButton){
             localStorage.setItem('filteredRestFoodResp', myJSON);
             newr = localStorage.getItem('filteredRestFoodResp');
             console.log('checkNew : ', newr);
-            getReviews()
+            getReviews();
             window.location.href='./restaurant.html';            
           }
 
@@ -204,7 +204,7 @@ function restFilter(){
         console.log(typeof price);
         // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         // var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
-        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+        var str = '<div class="card card-rest-menu"><div class="card-body"><h5 class="card-title">' + foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         div.insertAdjacentHTML('beforeend', str);
     }
     
@@ -218,7 +218,7 @@ function restFilter(){
         var review = res.data.review[i];
         console.log("i-th review : ", review);
 
-        var str = '<div class="card card-rest"><div class="card-body"><p class="card-title">' +review+ '</p></div></div>';
+        var str = '<div class="card card-rest-review"><div class="card-body"><p class="card-title">' +review+ '</p></div></div>';
         // var str = '<p>'+review+'</p>';
         div.insertAdjacentHTML('beforeend', str);
     }
@@ -419,7 +419,7 @@ function makeReservation(){
     var body = {"rName":rName,"rTime":rTime,"rDate":rDate,"emailId":emailId};
     console.log("RESERVATION BODY : ", body);
 
-    
+
     apigClient.reservbookingPost(params,body,additionalParams).then(function(res){
           console.log(res);
           if(res.status==200){
