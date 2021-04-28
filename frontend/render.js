@@ -102,8 +102,8 @@ function onLogin(){
 
 function addItem(objButton){
     // alert(objButton.value);
-    var foodid = objButton.value;
-    var emailID = sessionStorage.getItem('emailIDItem');
+    var foodId = objButton.value;
+    var emailId = sessionStorage.getItem('emailIDItem');
 
     var apigClient = apigClientFactory.newClient(
         {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
@@ -115,7 +115,7 @@ function addItem(objButton){
 
     var params = {"Content-Type" : "application/json" };
 
-    var body = {"emailID":emailID, "foodid":foodid};
+    var body = {"emailId":emailId, "foodId":foodId};
 
     console.log('body : ', body);
     apigClient.addPost(params,body,additionalParams).then(function(res){
