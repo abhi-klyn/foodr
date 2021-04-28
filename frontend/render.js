@@ -9,12 +9,13 @@
 //     localStorage.setItem("trialItem", trial);
 //     window.location.href='./customer.html';
 // }
-function onLogin(){
-    var emailID = document.getElementById('email-address').value;
-    // console.log('emailID : ', emailID);
-    localStorage.setItem("emailIdItem", emailID);
-    window.location.href='./customer.html';
-}
+
+// function onLogin(){
+//     var emailID = document.getElementById('email-address').value;
+//     // console.log('emailID : ', emailID);
+//     localStorage.setItem("emailIdItem", emailID);
+//     window.location.href='./customer.html';
+// }
 
 function onFilter(){
     console.log("Inside onFilter")
@@ -142,19 +143,17 @@ function onRestaurantFilter(objButton){
             localStorage.setItem('filteredRestFoodResp', myJSON);
             newr = localStorage.getItem('filteredRestFoodResp');
             console.log('checkNew : ', newr);
+            getReviews()
             window.location.href='./restaurant.html';            
           }
 
     });
 
-    // API code to get reviews
-    body = {"rName":rName};
-    
-
 }
 
 function getReviews(){
-    rName = localStorage.getItem('rNameItem');
+    console.log("Calling getReviews");
+    var rName = localStorage.getItem('rNameItem');
     var body = {"rName":rName};
     var apigClient = apigClientFactory.newClient(
         {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
@@ -167,7 +166,7 @@ function getReviews(){
     var params = {"Content-Type" : "application/json" };
 
     // TODO : change name of apiG function
-    apigClient.searchPost(params,body,additionalParams).then(function(res){
+    apigClient.getreviewPost(params,body,additionalParams).then(function(res){
           console.log(res);
           if(res.status==200){
             console.log('RES : ', res);
@@ -176,8 +175,7 @@ function getReviews(){
             console.log("JSON: ", myJSON)
             localStorage.setItem('reviewsResp', myJSON);
             newr = localStorage.getItem('reviewsResp');
-            console.log('checkNew : ', newr);
-            window.location.href='./restaurant.html';            
+            console.log('checkNew !!!: ', newr);
           }
 
     });
@@ -190,12 +188,9 @@ function restFilter(){
     document.getElementById('restHeading').innerHTML = rName
     document.getElementById('restHeading').hidden = false;
     newr = localStorage.getItem('filteredRestFoodResp');
-    // console.log('checkNew 1: ', newr);
-    // console.log(typeof newr);
     var res = JSON.parse(newr);
-    // console.log(typeof res);
-    // console.log('checkNew 2: ', res);
     div = document.getElementById('restMenuDiv');
+
     console.log("Inside finalCart");
     console.log(res.data.solutions[0]);
     for (i = 0; i < res.data.solutions.length; i++) {
@@ -213,15 +208,16 @@ function restFilter(){
         div.insertAdjacentHTML('beforeend', str);
     }
     
-    // for every filter add div to the major filters div
+    // add reviews 
 
     newr = localStorage.getItem('reviewsResp');
     res = JSON.parse(newr);
     console.log('RES, REVIEW : ', res);
     div = document.getElementById('reviewsDiv');
 
-    for (i = 0; i < res.data.solutions.length; i++) {
-        // var review = ;
+    for (i = 0; i < res.data.review.length; i++) {
+        var review = res.data.review[i];
+        console.log("i-th review : ", review);
         // console.log(typeof rName);
         // console.log(typeof foodName);
         // console.log(typeof price);
@@ -229,12 +225,11 @@ function restFilter(){
         // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         // var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
         // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
-        var str = '<p>'+review+'</p>'
+        var str = '<p>'+review+'</p>';
         div.insertAdjacentHTML('beforeend', str);
     }
 
 }
-
 
 
 function onCheckout(){
@@ -317,19 +312,21 @@ function onAddReview(){
     console.log('body : ', body);
     // change apigClient method here.
 
-    // apigClient.addPost(params,body,additionalParams).then(function(res){
-    //       console.log(res);
-    //       if(res.status==200){
-    //         console.log('res : ', res);
-    //         console.log(typeof res);    
-    //     }
+    apigClient.addreviewPost(params,body,additionalParams).then(function(res){
+          console.log(res);
+          if(res.status==200){
+            console.log('res : ', res);
+            console.log(typeof res); 
+            console.log("Added review"); 
+            // document.querySelector('#custReview').value = ''; 
+            window.location.href='./restaurant.html'; 
+        }
 
-    // });
+    });  
 
-    // // clearing the textarea 
-    // window.location.href='./restaurant.html';
-       
-    // document.querySelector('#custReview').value = '';
+}
+
+function displayReviews(){
 
 }
 
