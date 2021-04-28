@@ -136,6 +136,7 @@ function onRestaurantFilter(objButton){
             localStorage.setItem('filteredRestFoodResp', myJSON);
             newr = localStorage.getItem('filteredRestFoodResp');
             console.log('checkNew : ', newr);
+
             window.location.href='./restaurant.html';            
           }
 
@@ -143,6 +144,24 @@ function onRestaurantFilter(objButton){
 
     // API code to get reviews
     body = {"rName":rName};
+    
+
+}
+
+function getReviews(){
+    rName = localStorage.getItem('rNameItem');
+    var body = {"rName":rName};
+    var apigClient = apigClientFactory.newClient(
+        {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
+    );
+
+    var additionalParams = {headers: {
+        'Content-Type':"application/json"
+    }};
+
+    var params = {"Content-Type" : "application/json" };
+
+    // TODO : change name of apiG function
     apigClient.searchPost(params,body,additionalParams).then(function(res){
           console.log(res);
           if(res.status==200){
@@ -188,6 +207,28 @@ function restFilter(){
         var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         div.insertAdjacentHTML('beforeend', str);
     }
+
+    newr = localStorage.getItem('reviewsResp');
+    res = JSON.parse(newr);
+    console.log('RES, REVIEW : ', res);
+    div = document.getElementById('reviewsDiv');
+
+    for (i = 0; i < res.data.solutions.length; i++) {
+        var review = ;
+        // console.log(typeof rName);
+        // console.log(typeof foodName);
+        // console.log(typeof price);
+
+        // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+        // var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
+        // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+        var str = '<p>'+review+'</p>'
+        div.insertAdjacentHTML('beforeend', str);
+    }
+
+
+    // for every filter add div to the major filters div
+
 
 }
 
