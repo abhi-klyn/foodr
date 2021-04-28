@@ -119,6 +119,42 @@ apigClientFactory.newClient = function (config) {
     };
     
     
+    apigClient.addPost = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var addPostRequest = {
+            verb: 'post'.toUpperCase(),
+            path: pathComponent + uritemplate('/add').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(addPostRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.addOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var addOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/add').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(addOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.searchPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
