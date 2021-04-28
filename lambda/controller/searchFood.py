@@ -123,7 +123,67 @@ def searchFoodByRestaurantName(rName):
         foodIdSet.add(row[0])
     return foodIdSet
 
+def getVeganFood():
+    rows = runQuery('SELECT foodid from food where foodid not in (SELECT foodid FROM food natural join foodingredient natural join ingredient where ingredient.tag in (\'meat\', \'dairy\', \'eggs\', \'poultry\', \'seafood\'));')
+    foodIdSet = set()
+    for row in rows:
+        foodIdSet.add(row[0])
+    return foodIdSet
+
+def getVegitarianFood():
+    rows = runQuery('SELECT foodid from food where foodid not in (SELECT foodid FROM food natural join foodingredient natural join ingredient where ingredient.tag in (\'meat\', \'eggs\', \'poultry\', \'seafood\'));')
+    foodIdSet = set()
+    for row in rows:
+        foodIdSet.add(row[0])
+    return foodIdSet
+
+def getPescetarianFood():
+    rows = runQuery('SELECT foodid from food where foodid not in (SELECT foodid FROM food natural join foodingredient natural join ingredient where ingredient.tag in (\'meat\', \'eggs\', \'poultry\'));')
+    foodIdSet = set()
+    for row in rows:
+        foodIdSet.add(row[0])
+    return foodIdSet
+
+def getNutFreeFood():
+    rows = runQuery('SELECT foodid from food where foodid not in (SELECT foodid FROM food natural join foodingredient natural join ingredient where ingredient.tag in (\'nuts\'));')
+    foodIdSet = set()
+    for row in rows:
+        foodIdSet.add(row[0])
+    return foodIdSet
+
+def getMeatFood():
+    rows = runQuery('SELECT foodid from food where foodid in (SELECT foodid FROM food natural join foodingredient natural join ingredient where ingredient.tag in (\'meat\', \'eggs\', \'poultry\', \'seafood\'));')
+    foodIdSet = set()
+    for row in rows:
+        foodIdSet.add(row[0])
+    return foodIdSet
+
+def getGlutenFreeFood():
+    rows = runQuery('SELECT foodid from food where foodid not in (SELECT foodid FROM food natural join foodingredient natural join ingredient where ingredient.tag in (\'gluten\'));')
+    foodIdSet = set()
+    for row in rows:
+        foodIdSet.add(row[0])
+    return foodIdSet
+
+def getFoodByTag(tag):
+  print('xuyz', tag)
+  if tag == 'vegan': 
+    return getVeganFood()
+  if tag == 'vegetarian':
+    return getVegitarianFood()
+  if tag == 'gluten-free':
+    return getGlutenFreeFood()
+  if tag == 'nut-free':
+    return getNutFreeFood()
+  if tag == 'contains-meat':
+    return getMeatFood()
+  if tag == 'pescetarian':
+    print('cde', tag)
+    return getPescetarianFood()
+
+
 def aggregateResults(rName = None, foodName = None, tag = None, calories = None):
+    print(tag)
     foodIdSet = set()
     results = []
     if rName!="":
@@ -132,8 +192,12 @@ def aggregateResults(rName = None, foodName = None, tag = None, calories = None)
     if foodName!="":
         result = searchFoodByName(foodName)
         foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
-    for foodId in foodIdSet:
-        results.append(getFoodDetails(foodId))
+    if tag != "":
+        result = getFoodByTag(tag)
+        foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
+    if len(foodIdSet) > 0:
+        for foodId in foodIdSet:
+            results.append(getFoodDetails(foodId))
     return results
 
 def getFoodDetails(foodId):
