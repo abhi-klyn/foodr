@@ -179,22 +179,20 @@ function onCheckout(){
 
 }
 
-function finalCart(){
-    // alert("finally");
-    
+function finalCart(){   
     newr = localStorage.getItem('checkoutRes');
     console.log('checkNew : ', newr);
     var res = JSON.parse(newr);
     console.log('checkNew : ', res);
     div = document.getElementById('cartDiv');
     // div.innerHTML = "";
-    console.log("Inside foodFilter");
-    document.getElementById("cartDiv").hidden = false;
-    console.log(res[0]);
-    for (i = 0; i < res.length; i++) {
-        var rName = res[i][0];
-        var foodName = res[i][1];
-        var price = res[i][2];
+    console.log("Inside finalCart");
+    // document.getElementById("cartDiv").hidden = false;
+    console.log(res.data[0]);
+    for (i = 0; i < res.data.length; i++) {
+        var rName = res.data[i][0];
+        var foodName = res.data[i][1];
+        var price = res.data[i][2];
         console.log(typeof rName);
         console.log(typeof foodName);
         console.log(typeof price);
