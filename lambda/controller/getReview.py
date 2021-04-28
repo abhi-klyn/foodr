@@ -39,6 +39,9 @@ def runQuery(query):
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
+# Takses a restaurant name and gives revies in list
+# input: 'Sushi Sushi'
+# Output: ['good Asian food', 'pho is good']
 def getReviews(restaurantName=None):
     rows = runQuery('SELECT review FROM reviews WHERE restaurantname = \'{}\''.format(restaurantName))
     reviews = []
