@@ -11,7 +11,7 @@
     <title>Restaurant page</title>
     <script src="render.js"></script>
     <!-- <script type="text/javascript" src="./assets/js/sdk/lib/"></script> -->
-    <!-- <script type="text/javascript" src="./assets/js/sdk/lib/axios/dist/axios.standalone.js"></script> -->
+    <script type="text/javascript" src="./assets/js/sdk/lib/axios/dist/axios.standalone.js"></script>
     <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
     <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
     <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/components/hmac.js"></script>
@@ -55,22 +55,21 @@
         <div id="restMenuDiv" class="row-sm">
       <!-- Need to add more divs dynammically over here to display food items -->
           <h1 id="restHeading" hidden="true">Rest Name here</h1>
-
-          <!-- <div class="card card-rest" >
-            <div class="card-body">
-              <h5 class="card-title">Pita bread</h5>
-              <h6 class="card-subtitle mb-2 text-muted">20$</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-              <button type="button" class="btn btn-secondary" style="background-color: black;">Add</button>
-            </div>
-          </div> -->
-
         </div>
 
         <!-- Reviews div -->
-        <div id="reviewsDiv"></div>
+        <div id="reviewsDiv" class="row-sm">
+          
+        </div>
+        
         <!-- Add Review div -->
-        <div id="addReviewDiv"></div>
+        <div id="addReviewDiv" class="row-sm">
+          <div class="row-sm row-box"style="height: 15%;background-color: #ffb31a;">
+            <textarea id="custReview" name="custReview" rows="4" cols="40"></textarea>
+            <button onclick="onAddReview()" type="button" class="btn btn-secondary" style="background-color: black;">Add Review</button> 
+          </div>
+        </div>
+
 
         <div class="row-sm" style="padding: 20px">
           <button onclick="onCheckout()" type="button" class="btn btn-secondary" style="background-color: black;">Checkout</button> 
