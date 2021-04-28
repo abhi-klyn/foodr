@@ -24,10 +24,6 @@ function secondFunc(){
 //     div.insertAdjacentHTML('beforeend', str);
 // }
 
-function add_item(objButton) {
-	alert(objButton.value);
-}
-
 function onFilter(){
     console.log("Inside onFilter")
     var foodName = document.getElementById('dname').value;
@@ -43,13 +39,12 @@ function onFilter(){
         'Content-Type':"application/json"
     }};
 
-    console.log(foodName);
-    console.log(rName);
-    console.log(tag);
-    console.log(calories);
+    // console.log(foodName);
+    // console.log(rName);
+    // console.log(tag);
+    // console.log(calories);
 
     var params = {"Content-Type" : "application/json" };
-    // var body = {"username":dname,  "emailID":rname};
     var body = {"foodName":foodName, "rName":rName, "tag":tag,"calories":calories};
     console.log('body : ', body);
     apigClient.searchPost(params,body,additionalParams).then(function(res){
@@ -69,10 +64,8 @@ function onFilter(){
 
        });
 
-    //location.replace("./food.html");
 }
 
-// second
 function foodFilter(){
     newr = localStorage.getItem('filteredFoodRes');
     console.log('checkNew : ', newr);
@@ -89,11 +82,12 @@ function foodFilter(){
         var foodName = res.data.solutions[i][1];
         var price = res.data.solutions[i][2];
         var ingredients = res.data.solutions[i][3]
+        var foodid = res.data.solutions[i][4]
         console.log(typeof rName);
         console.log(typeof foodName);
         console.log(typeof price);
-        // var str = '<div class="row-sm row"><h5 id="foodname">'+foodName+'</h5><h4 id="rName">'+rName+'</h4><h5 id="price">'+price+'</h5></div>'
-        var str = '<div class="row-sm row"><h4 id="foodname">' +foodName+ '</h4><h5 id="rName">' +rName+ '</h5><h6 id="price">' +price+ '</h6><h6>' +ingredients+ '</h6></div>';
+        console.log(typeof foodid);
+        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +rName+ '</h6><h6 class="card-subtitle mb-2 text-muted">' +price+ '</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         console.log('about to add');
         div.insertAdjacentHTML('beforeend', str);
     }
@@ -104,6 +98,34 @@ function onLogin(){
     // console.log('emailID : ', emailID);
     sessionStorage.setItem("emailIDItem", emailID);
     window.location.href='./customer.html';
+}
+
+function addItem(objButton){
+    // alert(objButton.value);
+    var foodid = objButton.value;
+    var emailID = sessionStorage.getItem('emailIDItem');
+
+    var apigClient = apigClientFactory.newClient(
+        {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
+    );
+
+    var additionalParams = {headers: {
+        'Content-Type':"application/json"
+    }};
+
+    var params = {"Content-Type" : "application/json" };
+
+    var body = {"emailID":emailID, "foodid":foodid};
+
+    console.log('body : ', body);
+    apigClient.addPost(params,body,additionalParams).then(function(res){
+          console.log(res);
+          if(res.status==200){
+            console.log('res : ', res);
+            console.log(typeof res);    
+        }
+
+    });
 
 }
 
