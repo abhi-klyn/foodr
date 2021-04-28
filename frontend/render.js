@@ -177,11 +177,32 @@ function onCheckout(){
           }
     });
 
-
 }
 
 function finalCart(){
-    alert("finally");
+    // alert("finally");
+    
+    newr = localStorage.getItem('checkoutRes');
+    console.log('checkNew : ', newr);
+    var res = JSON.parse(newr);
+    console.log('checkNew : ', res);
+    div = document.getElementById('cartDiv');
+    // div.innerHTML = "";
+    console.log("Inside foodFilter");
+    document.getElementById("cartDiv").hidden = false;
+    console.log(res[0]);
+    for (i = 0; i < res.length; i++) {
+        var rName = res[i][0];
+        var foodName = res[i][1];
+        var price = res[i][2];
+        console.log(typeof rName);
+        console.log(typeof foodName);
+        console.log(typeof price);
+        // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+        var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
+        div.insertAdjacentHTML('beforeend', str);
+    }
+
 
 }
 
