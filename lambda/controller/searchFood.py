@@ -38,9 +38,9 @@ connection = pymysql.connect(host=endpoint, user=username,
     passwd=password, db=database_name)
 
 def lambda_handler(event, context):
-    #body = json.loads(event['body'])
+    body = json.loads(event['body'])
     
-    body = event['body']
+    #body = event['body']
 
     #rName = body['rName']
     rName = body.get('rName',"")
