@@ -10,25 +10,26 @@ function secondFunc(){
     window.location.href='./customer.html';
 }
 
-function getFiltered() {
-    div = document.getElementById('filterResults');
-    div.innerHTML = "";
-    console.log("Inside getFiltered");
-    document.getElementById("filterResults").hidden = false;
+// function getFiltered() {
+//     div = document.getElementById('filterResults');
+//     div.innerHTML = "";
+//     console.log("Inside getFiltered");
+//     document.getElementById("filterResults").hidden = false;
 
-    // get data from the search function and display below
-    var fname = "New Pita bread";
-    var price = "50.00";
-    var qty = "3";
-    var str = '<div class="row-sm row"><h4 id="dname">'+fname+'</h4><h5 id="price">'+price+'</h5><h5 id="qty">Quantity : '+qty+'</h5></div>';
-    div.insertAdjacentHTML('beforeend', str);
-}
+//     // get data from the search function and display below
+//     var fname = "New Pita bread";
+//     var price = "50.00";
+//     var qty = "3";
+//     var str = '<div class="row-sm row"><h4 id="dname">'+fname+'</h4><h5 id="price">'+price+'</h5><h5 id="qty">Quantity : '+qty+'</h5></div>';
+//     div.insertAdjacentHTML('beforeend', str);
+// }
 
 function add_item(objButton) {
 	alert(objButton.value);
 }
 
-function foodFilter(){
+function onFilter(){
+    console.log("Inside onFilter")
     var foodName = document.getElementById('dname').value;
     var rName = document.getElementById('rname').value;
     var tag = document.getElementById('dietTag1').value;
@@ -56,14 +57,40 @@ function foodFilter(){
           if(res.status==200){
             console.log('res : ', res);
             // document.getElementById('outputXX').value=res;
-            document.getElementById("outputXX").hidden = false;
+            // document.getElementById("outputXX").hidden = false;
+            console.log(typeof res)
+            sessionStorage.setItem("filteredFoodRes", res);
+
           }
-          else{
-            console.log("FAILURE");
-          }
+
        });
+    // window.location.href='./food.html';
 }
 
+// second
+function foodFilter(){
+    res = sessionStorage.getItem("filteredFoodRes");
+    console.log('res : ', res);
+    div = document.getElementById('filterResults');
+    // div.innerHTML = "";
+    console.log("Inside foodFilter");
+    document.getElementById("filterResults").hidden = false;
+    console.log(res.data.solutions[0]);
+    console.log('hi:)');
+    for (i = 0; i < res.data.solutions.length; i++) {
+        var rName = res.data.solutions[i][0];
+        var foodName = res.data.solutions[i][1];
+        var price = res.data.solutions[i][2];
+        var ingredients = res.data.solutions[i][3]
+        console.log(typeof rName);
+        console.log(typeof foodName);
+        console.log(typeof price);
+        // var str = '<div class="row-sm row"><h5 id="foodname">'+foodName+'</h5><h4 id="rName">'+rName+'</h4><h5 id="price">'+price+'</h5></div>'
+        var str = '<div class="row-sm row"><h4 id="foodname">' +foodName+ '</h4><h5 id="rName">' +rName+ '</h5><h6 id="price">' +price+ '</h6><h6>' +ingredients+ '</h6></div>';
+        console.log('about to add');
+        div.insertAdjacentHTML('beforeend', str);
+    }
+}
 
 function onLogin(){
     var emailID = document.getElementById('email-address').value;
