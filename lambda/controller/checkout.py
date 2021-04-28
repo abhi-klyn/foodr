@@ -1,5 +1,8 @@
 import pymysql
 import sys
+import json
+from botocore.exceptions import ClientError
+import boto3
 
 # rm -rf ~/Desktop/function.zip
 # zip -r9 ~/Desktop/function.zip .
@@ -13,13 +16,89 @@ connection = pymysql.connect(host=endpoint, user=username,
     passwd=password, db=database_name)
 
 def lambda_handler(event, context):
-    cursor = connection.cursor()
-    cursor.execute('SELECT * from foodTable')
 
-    rows = cursor.fetchall()
+    body = json.loads(event['body'])
+    emailId = body['emailId']
+    res = checkout(emailId)
+    #print('res')
+    #print(res)
+    #print('\n')
 
-    for row in rows:
-        print("{0} {1}".format(row[0], row[1]))
+    for indx in range(len(res)):
+        res[indx][2] = float(res[indx][2])
+
+
+    #SENDER = "abhi2@cloudproj.awsapps.com"
+    response = {}
+    response['headers'] = {}
+    response['statusCode']=200
+    response['headers']['Content-Type'] = 'application/json'
+    response['headers']['Access-Control-Allow-Origin'] = '*'
+    response['body'] = json.dumps(res)
+    print(response)
+
+
+    SENDER = "abhi2@cloudproj.awsapps.com"
+    AWS_REGION = "us-east-1"
+    SUBJECT = "Amazon SES Test (SDK for Python)"
+    CHARSET = "UTF-8"
+    RECIPIENT = emailId
+    BODY_HTML = """<html>
+        <head></head>
+        <body>
+        <h1>Thank you for choosing us as your dining partner</h1>
+        <p>Powered by Big Data</p>
+        </body>
+        </html>
+            """ 
+    BODY_TEXT = json.dumps(res)
+    client = boto3.client('ses',region_name=AWS_REGION)
+
+    try:
+        #Provide the contents of the email.
+        resp = client.send_email(
+            Destination={
+                'ToAddresses': [
+                    RECIPIENT,
+                ],
+                },
+            Message={
+            'Body': {
+                #'Html': {
+                #    'Charset': CHARSET,
+                #    'Data': BODY_HTML,
+                #},
+                'Text': {
+                    'Charset': CHARSET,
+                    'Data': BODY_TEXT,
+                },
+            },
+            'Subject': {
+                'Charset': CHARSET,
+                'Data': SUBJECT,
+            },
+        },
+        Source=SENDER#,
+        # If you are not using a configuration set, comment or delete the
+        # following line
+        #ConfigurationSetName=CONFIGURATION_SET,
+        )
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent! Message ID:"),
+        print(resp['MessageId'])
+
+    return response
+
+
+    #cursor = connection.cursor()
+    #cursor.execute('SELECT * from foodTable')
+
+    #rows = cursor.fetchall()
+
+    #for row in rows:
+    #    print("{0} {1}".format(row[0], row[1]))
 
 def insertQuery(query):
     try:
@@ -66,5 +145,5 @@ def checkout(email):
     return orderList
 
 # usage 
-print(checkout('abhi.klyn@gmail.com'))
+#print(checkout('abhi.klyn@gmail.com'))
 # output -- [[restaurant name, food name, price] .. ]
