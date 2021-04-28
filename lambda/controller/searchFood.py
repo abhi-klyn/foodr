@@ -57,8 +57,8 @@ def lambda_handler(event, context):
     if calories!="":
         calories=int(calories)
     #calories = body['calories']
-
-    res = aggregateResults(rName,foodName,tag,calories)
+    print('tag',tag)
+    res = aggregateResults(rName=rName, foodName=foodName, tag=tag, calories=calories)
     print('New', res)
     for indx in range(len(res)):
         res[indx][3] = ','.join([x for x in res[indx][3]])
