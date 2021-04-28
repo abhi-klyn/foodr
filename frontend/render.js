@@ -109,12 +109,9 @@ function addItem(objButton){
 }
 
 function onRestaurantFilter(objButton){
-    // alert(objButton.value);
-    // document.getElementById("restHeading").hidden = false;
-    // document.getElementById("restHeading").innerHTML = rName;
     console.log("Inside onRestaurantFilter")
     var rName = objButton.value;
-
+    localStorage.setItem('rNameItem', rName);
 
     var apigClient = apigClientFactory.newClient(
         {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
@@ -127,25 +124,48 @@ function onRestaurantFilter(objButton){
     var params = {"Content-Type" : "application/json" };
     var body = {"foodName":"", "rName":rName, "tag":"","calories":""};
     console.log('body : ', body);
-    // apigClient.searchPost(params,body,additionalParams).then(function(res){
-    //       console.log(res);
-    //       if(res.status==200){
-    //         console.log('res : ', res);
-    //         console.log(typeof res);
-    //         var myJSON = JSON.stringify(res);
-    //         console.log("json: ", myJSON)
-    //         localStorage.setItem('filteredRestFoodRes', myJSON);
-    //         newr = localStorage.getItem('filteredRestFoodRes');
-    //         console.log('checkNew : ', newr);
-    //         window.location.href='./restaurant.html';            
-    //       }
+    apigClient.searchPost(params,body,additionalParams).then(function(res){
+          console.log(res);
+          if(res.status==200){
+            console.log('RES : ', res);
+            console.log(typeof res);
+            var myJSON = JSON.stringify(res);
+            console.log("JSON: ", myJSON)
+            localStorage.setItem('filteredRestFoodRes', myJSON);
+            newr = localStorage.getItem('filteredRestFoodRes');
+            console.log('checkNew : ', newr);
+            window.location.href='./restaurant.html';            
+          }
 
-    // });
-    window.location.href='./restaurant.html';    
+    });
 
 }
 
 function restFilter(){
+
+    rName = localStorage.getItem('rNameItem');
+    document.getElementById('restHeading').innerHTML = rName
+    document.getElementById('restHeading').hidden = false;
+    newr = localStorage.getItem('filteredRestFoodRes');
+    // console.log('checkNew 1: ', newr);
+    // console.log(typeof newr);
+    var res = JSON.parse(newr);
+    // console.log(typeof res);
+    // console.log('checkNew 2: ', res);
+    div = document.getElementById('restMenuDiv');
+    console.log("Inside finalCart");
+    console.log(res.data.solutions[0]);
+    for (i = 0; i < res.data.solutions.length; i++) {
+        var rName = res.data.solutions[i][0];
+        var foodName = res.data.solutions[i][1];
+        var price = res.data.solutions[i][2];
+        console.log(typeof rName);
+        console.log(typeof foodName);
+        console.log(typeof price);
+        // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+        var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
+        div.insertAdjacentHTML('beforeend', str);
+    }
 
 }
 

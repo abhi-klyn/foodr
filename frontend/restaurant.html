@@ -43,27 +43,35 @@
 
       }
   </style>
-  <body>
+  <body onload="restFilter()">
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
-
     <div class="parent">
       <div class="col">
-        <div class="row-sm">
+
+        <!-- Menu item div -->
+        <div id="restMenuDiv" class="row-sm">
       <!-- Need to add more divs dynammically over here to display food items -->
           <h1 id="restHeading" hidden="true">Rest Name here</h1>
-          <div class="card card-rest" >
+
+          <!-- <div class="card card-rest" >
             <div class="card-body">
               <h5 class="card-title">Pita bread</h5>
               <h6 class="card-subtitle mb-2 text-muted">20$</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-              <!-- <a href="#" class="btn btn-primary">Add</a> -->
               <button type="button" class="btn btn-secondary" style="background-color: black;">Add</button>
             </div>
-          </div>
+          </div> -->
+
         </div>
+
+        <!-- Reviews div -->
+        <div id="reviewsDiv"></div>
+        <!-- Add Review div -->
+        <div id="addReviewDiv"></div>
+
         <div class="row-sm" style="padding: 20px">
           <button onclick="onCheckout()" type="button" class="btn btn-secondary" style="background-color: black;">Checkout</button> 
         </div>
