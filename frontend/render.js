@@ -1,18 +1,18 @@
 // function firstFunc(){
-//     var trial = sessionStorage.getItem("emailIDItem");
+//     var trial = localStorage.getItem("emailIdItem");
 //     console.log('trial : ', trial);
 //     console.log("YAY!")	
 // }
 
 // function secondFunc(){
 //     var trial = document.getElementById('trial').innerHTML;
-//     sessionStorage.setItem("trialItem", trial);
+//     localStorage.setItem("trialItem", trial);
 //     window.location.href='./customer.html';
 // }
 function onLogin(){
     var emailID = document.getElementById('email-address').value;
     // console.log('emailID : ', emailID);
-    sessionStorage.setItem("emailIDItem", emailID);
+    localStorage.setItem("emailIdItem", emailID);
     window.location.href='./customer.html';
 }
 
@@ -82,7 +82,7 @@ function foodFilter(){
 
 function addItem(objButton){
     var foodId = objButton.value;
-    var emailId = sessionStorage.getItem('emailIDItem');
+    var emailId = localStorage.getItem('emailIdItem');
 
     var apigClient = apigClientFactory.newClient(
         {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
@@ -207,6 +207,8 @@ function restFilter(){
         var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         div.insertAdjacentHTML('beforeend', str);
     }
+    
+    // for every filter add div to the major filters div
 
     newr = localStorage.getItem('reviewsResp');
     res = JSON.parse(newr);
@@ -214,7 +216,7 @@ function restFilter(){
     div = document.getElementById('reviewsDiv');
 
     for (i = 0; i < res.data.solutions.length; i++) {
-        var review = ;
+        // var review = ;
         // console.log(typeof rName);
         // console.log(typeof foodName);
         // console.log(typeof price);
@@ -226,16 +228,13 @@ function restFilter(){
         div.insertAdjacentHTML('beforeend', str);
     }
 
-
-    // for every filter add div to the major filters div
-
-
 }
 
 
 
 function onCheckout(){
-    emailId = sessionStorage.getItem('emailIDItem');
+    emailId = localStorage.getItem('emailIdItem');
+    console.log('emailIdItem emailId ---', emailId);
     var apigClient = apigClientFactory.newClient(
         {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
     );
@@ -283,7 +282,7 @@ function finalCart(){
     }
     console.log('TOTAL : ', total);
     console.log(typeof total);
-    totalStr = '<div class="row" style="text-align:center;">Your total amount is'+total.toString()+'$</div>';
+    totalStr = '<div class="row" style="text-align:center;">Your total amount is '+total.toString()+'$</div>';
     div.insertAdjacentHTML('beforeend', totalStr);
 
 }
@@ -327,9 +326,84 @@ function onAddReview(){
        
     // document.querySelector('#custReview').value = '';
 
+}
+
+function aswLogin(){
+
+    var apigClient = apigClientFactory.newClient({apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"});
+    var userName = document.getElementById('email-address').value;
+    var password = document.getElementById('password').value;
+
+    var params = {"Content-Type" : "application/json" };
+
+
+    var additionalParams = {headers: {'Content-Type':"application/json"}};
+    var body = {"userName":userName,"password":password};
+
+    console.log("BODY : ", body);
+    apigClient.loginPost(params,body,additionalParams).then(function(res){
+        console.log("RES : ", res);
+        if(res.status==200){
+            console.log('User Login');
+            var emailId = res.data['emailId'];
+            console.log('emailId : ', emailId);
+            localStorage.setItem("emailIdItem", userName);
+            window.location.href='./customer.html';
+        }
+    }).catch(e => {
+            console.log(e);
+            window.location.href='./login.html';
+        });
 
 }
 
+function aswConfirm(){
+    var apigClient = apigClientFactory.newClient({apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"});
+    var userName = document.getElementById('email-address').value;
+    var password = document.getElementById('password').value;
+    var confirmCode = document.getElementById('confirmCode').value;
+
+    var params = {"Content-Type" : "application/json" };
+
+
+    var additionalParams = {headers: {
+    'Content-Type':"application/json"
+    }};
+
+    var body = {"userName":userName, "confirmCode":confirmCode};
+
+    apigClient.confirmPost(params,body,additionalParams).then(function(res){
+        console.log("RES : ", res);
+        if(res.status==200){
+            console.log('User Confirmed');
+        }
+    });
+
+}
+
+function aswSignUp(){
+    var apigClient = apigClientFactory.newClient({apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"});
+
+    var additionalParams = {headers: {
+    'Content-Type':"application/json"
+    }};
+
+    var userName = document.getElementById('email-address').value;
+    var password = document.getElementById('password').value;
+
+    var body  = {"userName":userName,"password":password}
+
+    var params = {"Content-Type" : "application/json" };
+    console.log("BODY : ", body);
+    apigClient.signupPost(params,body,additionalParams).then(function(res){
+    console.log("RES : ", res);
+        if(res.status==200){
+            console.log('RES : ', res);
+            console.log('User created')
+        }
+
+    });
+}
 
 
 
