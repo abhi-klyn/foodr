@@ -39,9 +39,9 @@ def runQuery(query):
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
-# Takses a restaurant name and gives revies in list
-# input: 'Sushi Sushi'
-# Output: ['good Asian food', 'pho is good']
+# Takses a restaurant name and reviews, returns nothing
+# input: 'Sushi Sushi', 'good Fun here'
+# Output: None
 def putReview(restaurantName, review):
     insertQuery('INSERT INTO reviews(restaurantname, review) VALUES (\'{}\', \'{}\')'.format(restaurantName, review))
     return True
