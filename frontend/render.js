@@ -197,7 +197,7 @@ function getReviews(){
                 // var str = '<p>'+review+'</p>';
                 div.insertAdjacentHTML('beforeend', str);
             }
-            
+
             // for(i = 0; i < 10; i++) {
             //     t = Math.random() * (res.data.review.length-1);
             //     var review = res.data.review[i];
@@ -467,10 +467,4 @@ function makeReservation(){
     console.log("END OF MAKE RESERVATION");
 
 }
-
-
-
-
-
-
 
