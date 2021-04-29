@@ -22,6 +22,8 @@ function onFilter(){
     var foodName = document.getElementById('dname').value;
     var rName = document.getElementById('rname').value;
     var tag = document.getElementById('dietTag1').value;
+    var tag2 = document.getElementById('dietTag2').value;
+    var tag3 = document.getElementById('dietTag3').value;
     var calories = document.getElementById('max-calories').value;
 
     var apigClient = apigClientFactory.newClient(
@@ -33,7 +35,7 @@ function onFilter(){
     }};
 
     var params = {"Content-Type" : "application/json" };
-    var body = {"foodName":foodName, "rName":rName, "tag":tag,"calories":calories};
+    var body = {"foodName":foodName, "rName":rName, "tag":tag,"tag2":tag2,"tag3":tag3,"calories":calories};
     console.log('body : ', body);
     apigClient.searchPost(params,body,additionalParams).then(function(res){
           console.log(res);
@@ -129,7 +131,7 @@ function onRestaurantFilter(objButton){
     }};
 
     var params = {"Content-Type" : "application/json" };
-    var body = {"foodName":"", "rName":rName, "tag":"","calories":""};
+    var body = {"foodName":"", "rName":rName, "tag":"","tag2":"","tag3":"","calories":""};
     console.log('body : ', body);
 
     // API code to get the food 
@@ -254,7 +256,6 @@ function onCheckout(){
             window.location.href='./final.html';            
           }
     });
-
 }
 
 function finalCart(){   
@@ -312,20 +313,15 @@ function onAddReview(){
             console.log('res : ', res);
             console.log(typeof res); 
             console.log("Added review"); 
-            // document.querySelector('#custReview').value = ''; 
-            window.location.href='./restaurant.html'; 
+            document.querySelector('#custReview').value = ''; 
+            // window.location.href='./restaurant.html'; 
         }
 
     });  
 
 }
 
-function displayReviews(){
-
-}
-
 function aswLogin(){
-
     var apigClient = apigClientFactory.newClient({apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"});
     var userName = document.getElementById('email-address').value;
     var password = document.getElementById('password').value;
@@ -348,6 +344,7 @@ function aswLogin(){
         }
     }).catch(e => {
             console.log(e);
+            alert("Wrong login, please refresh and try again!")
             window.location.href='./login.html';
         });
 
@@ -372,6 +369,8 @@ function aswConfirm(){
         console.log("RES : ", res);
         if(res.status==200){
             console.log('User Confirmed');
+            alert("Confirmed! You can log in now.");
+            window.location.href='./login.html';
         }
     });
 
@@ -396,6 +395,8 @@ function aswSignUp(){
         if(res.status==200){
             console.log('RES : ', res);
             console.log('User created')
+            alert("Check your email for confirmCode");
+            window.location.href='./login.html';
         }
 
     });
