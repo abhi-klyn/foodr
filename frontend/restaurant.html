@@ -78,9 +78,8 @@
 
         <!-- Reviews div -->
         <br><br><br>
-        <div id="reviewsDiv" class="row-sm">
-          <h3 style="color: white;">Reviews</h3>
-          
+        <button onclick="getReviews()" type="button" class="btn btn-secondary" style="background-color: black;">View Reviews</button><br><br>
+        <div id="reviewsDiv" class="row-sm"> 
         </div><br><br><br>
         
         <!-- Add Review div -->
@@ -92,24 +91,12 @@
         </div><br><br>
 
         <div id="reservationDiv" class="card-rest row-sm" style="background:#e69900;">
-          <!-- <div class="row-sm row-box"style="height: 15%;background-color: #e69900;"> -->
-            <!-- <form method="post" action="/restaurant/add_reservation">
-              <label for="Date">Date</label>
-              <input type="date" id="reservation_date" name="reservation_date" required>
-              <label for="Time">Time</label>
-              <input type="time" id="reservation_time" name="reservation_time" required>
-              <button onclick="makeReservation()" type="button" class="btn btn-secondary" style="background-color: black;">Make a Reservation</button> 
-            </form> -->
             <label for="rDate">Date</label>
             <input type="date" id="rDate" name="rDate"><br><br>
             <label for="rTime">Time</label>
             <input type="time" id="rTime" name="rTime"><br><br>
             <button onclick="makeReservation()" type="button" class="btn btn-secondary" style="background-color: black;">Make a Reservation</button> 
-          <!-- </div> -->
         </div>
-        <!-- <div class="row-sm" style="padding: 20px">
-          <button onclick="getReviews()" type="button" class="btn btn-secondary" style="background-color: black;">View Reviews</button> 
-        </div> -->
 
         <div class="row-sm" style="padding: 20px">
           <button onclick="onCheckout()" type="button" class="btn btn-secondary" style="background-color: black;">Checkout</button> 

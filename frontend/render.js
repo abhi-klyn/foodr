@@ -145,7 +145,6 @@ function onRestaurantFilter(objButton){
             localStorage.setItem('filteredRestFoodResp', myJSON);
             newr = localStorage.getItem('filteredRestFoodResp');
             console.log('checkNew : ', newr);
-            getReviews();
             window.location.href='./restaurant.html';            
           }
 
@@ -154,6 +153,12 @@ function onRestaurantFilter(objButton){
 }
 
 function getReviews(){
+
+    var div = document.getElementById('reviewsDiv');
+    while(div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
+
     console.log("Calling getReviews");
     var rName = localStorage.getItem('rNameItem');
     var body = {"rName":rName};
@@ -178,6 +183,19 @@ function getReviews(){
             localStorage.setItem('reviewsResp', myJSON);
             newr = localStorage.getItem('reviewsResp');
             console.log('checkNew !!!: ', newr);
+             
+            res = JSON.parse(newr);
+            console.log('RES, REVIEW : ', res);
+            // div = document.getElementById('reviewsDiv');
+
+            // implement showing just 5 random reviews. 
+            for (i = 0; i < res.data.review.length; i++) {
+                var review = res.data.review[i];
+                console.log("i-th review : ", review);
+                str = '<div class="card card-rest-review"><div class="card-body"><p class="card-text">' + review + '</p></div></div>';
+                // var str = '<p>'+review+'</p>';
+                div.insertAdjacentHTML('beforeend', str);
+            }
           }
 
     });
@@ -211,22 +229,21 @@ function restFilter(){
     }
     
 
-    newr = localStorage.getItem('reviewsResp');
-    res = JSON.parse(newr);
-    console.log('RES, REVIEW : ', res);
-    div = document.getElementById('reviewsDiv');
+    // newr = localStorage.getItem('reviewsResp');
+    // res = JSON.parse(newr);
+    // console.log('RES, REVIEW : ', res);
+    // div = document.getElementById('reviewsDiv');
 
-    for (i = 0; i < res.data.review.length; i++) {
-        var review = res.data.review[i];
-        console.log("i-th review : ", review);
+    // for (i = 0; i < res.data.review.length; i++) {
+    //     var review = res.data.review[i];
+    //     console.log("i-th review : ", review);
 
-        var str = '<div class="card card-rest-review"><div class="card-body"><p class="card-title">' +review+ '</p></div></div>';
-        // var str = '<p>'+review+'</p>';
-        div.insertAdjacentHTML('beforeend', str);
-    }
+    //     var str = '<div class="card card-rest-review"><div class="card-body"><p class="card-title">' +review+ '</p></div></div>';
+    //     // var str = '<p>'+review+'</p>';
+    //     div.insertAdjacentHTML('beforeend', str);
+    // }
 
 }
-
 
 function onCheckout(){
     emailId = localStorage.getItem('emailIdItem');
@@ -313,8 +330,10 @@ function onAddReview(){
             console.log('res : ', res);
             console.log(typeof res); 
             console.log("Added review"); 
-            document.querySelector('#custReview').value = ''; 
-            // window.location.href='./restaurant.html'; 
+            alert("review added");
+            // document.querySelector('#custReview').value = ''; 
+            window.location.href='./restaurant.html'; 
+            // getReviews();
         }
 
     });  
@@ -344,7 +363,7 @@ function aswLogin(){
         }
     }).catch(e => {
             console.log(e);
-            alert("Wrong login, please refresh and try again!")
+            alert("Wrong login, please try again!")
             window.location.href='./login.html';
         });
 
