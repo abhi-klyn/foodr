@@ -84,6 +84,7 @@
         cursor: pointer;
         background-color: #fff; 
         border-bottom: 1px solid #d4d4d4; 
+        /*width:50%;*/
       }
 
       /*when hovering an item:*/
@@ -161,7 +162,7 @@
             </div>
             <div class="row-sm row-box" style="height: 15%; background-color:#ffc34d">
               <label for="max-calories">Max calories</label>
-              <input type="number" step="10" id="max-calories" name="max-calories"><br><br>
+              <input type="number" step="50" id="max-calories" name="max-calories"><br><br>
             </div>
             <!-- <form autocomplete="off"> -->
             <div class="row-sm row-box" style="height: 15%; background-color:#ffc34d">
@@ -289,13 +290,15 @@
     }
 
     /*An array containing all the country names in the world:*/
-    var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+    var ingredients = ["bass", "miso", "banana", "tofu", "asparagus", "soup","mango", "sauce", "green", "carrot", "cream", "tempura", "diet", 
+"fish", "potato", "veggie", "seafood", "honey", "roll", "special", "butter", "ale", "mayo", "salad", "rice", "white", "ginger","salmon", "sashimi","lox", "bread", "jelly", "dressing", "bagel", "cheese", "lettuce", "sushi", "tuna", 
+"teriyaki", "jalapeno", "eel", "soda", "water", "cucumber", "mushroom", "avocado", "shrimp", "broccoli", "wasabi", "crab","sweet", "manhattan", "scallion"];
 
-    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-    autocomplete(document.getElementById("exIng1"), countries);
-    autocomplete(document.getElementById("exIng2"), countries);
-    autocomplete(document.getElementById("incIng1"), countries);
-    autocomplete(document.getElementById("incIng2"), countries);
+    /*initiate the autocomplete function on the "myInput" element, and pass along the ingredients array as possible autocomplete values:*/
+    autocomplete(document.getElementById("exIng1"), ingredients);
+    autocomplete(document.getElementById("exIng2"), ingredients);
+    autocomplete(document.getElementById("incIng1"), ingredients);
+    autocomplete(document.getElementById("incIng2"), ingredients);
 </script>
 
   </body>

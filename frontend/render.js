@@ -25,6 +25,10 @@ function onFilter(){
     var tag2 = document.getElementById('dietTag2').value;
     var tag3 = document.getElementById('dietTag3').value;
     var calories = document.getElementById('max-calories').value;
+    var exIng1 = document.getElementById('exIng1').value;
+    var exIng2 = document.getElementById('exIng2').value;
+    var incIng1 = document.getElementById('incIng1').value;
+    var incIng2 = document.getElementById('incIng2').value;
 
     var apigClient = apigClientFactory.newClient(
         {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
@@ -35,7 +39,8 @@ function onFilter(){
     }};
 
     var params = {"Content-Type" : "application/json" };
-    var body = {"foodName":foodName, "rName":rName, "tag":tag,"tag2":tag2,"tag3":tag3,"calories":calories};
+    // var body = {"foodName":foodName, "rName":rName, "tag":tag,"tag2":tag2,"tag3":tag3,"calories":calories};
+    var body = {"foodName":foodName, "rName":rName, "tag":tag,"tag2":tag2,"tag3":tag3,"calories":calories,"exIng1":exIng1,"exIng2":exIng2,"incIng1":incIng1,"incIng2":incIng2};
     console.log('body : ', body);
     apigClient.searchPost(params,body,additionalParams).then(function(res){
           console.log(res);
@@ -104,7 +109,7 @@ function addItem(objButton){
             console.log('res : ', res);
             console.log(typeof res);  
             alert("Item added!");
-            window.location.href='./restaurant.html'; 
+            // window.location.href='./restaurant.html'; 
         }
 
     });
@@ -114,8 +119,8 @@ function addItem(objButton){
 function onRestaurantFilter(objButton){
     console.log("Inside onRestaurantFilter")
     var rName = objButton.value;
-    rName = rName.split("_");
-    rName = rName.join(" ");
+    // rName = rName.split("_");
+    // rName = rName.join(" ");
     // console.log('HI : rName : ', rName);
     localStorage.setItem('rNameItem', rName);
     window.location.href='./restaurant.html';
@@ -241,7 +246,6 @@ function restFilter(){
         div.insertAdjacentHTML('beforeend', str);
     }
     
-
 }
 
 function onCheckout(){
@@ -289,7 +293,7 @@ function finalCart(){
         var price = res.data[i][2];
         var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
         div.insertAdjacentHTML('beforeend', str);
-        total += price;
+        total += parseInt(price);
     }
     console.log('TOTAL : ', total);
     console.log(typeof total);
