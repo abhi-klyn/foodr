@@ -305,7 +305,7 @@ function finalCart(){
     }
     console.log('TOTAL : ', total);
     console.log(typeof total);
-    totalStr = '<div class="row" style="text-align:center;" style="text-size:12px;">Your total amount is '+total.toString()+'$</div>';
+    totalStr = '<div class="row">Your total amount is '+total.toString()+'$</div>';
     div.insertAdjacentHTML('beforeend', totalStr);
 
 }
