@@ -48,8 +48,13 @@ def lambda_handler(event, context):
 
     foodName = body.get('foodName',"")
     #foodName = None
-
+    tag, tag2,tag3 = None, None, None
     tag = body['tag']
+    try:    
+        tag2 = body['tag2']
+        tag3 = body['tag3']
+    except:
+        pass
     #tag = body.get('tag',None)
     #tag = None
 
@@ -58,10 +63,11 @@ def lambda_handler(event, context):
         calories=int(calories)
     #calories = body['calories']
     print('tag',tag)
-    res = aggregateResults(rName=rName, foodName=foodName, tag=tag, calories=calories)
+    res = aggregateResults(rName=rName, foodName=foodName, tag=tag, tag2=tag2, tag3=tag3, calories=calories)
     print('New', res)
     for indx in range(len(res)):
         res[indx][3] = ','.join([x for x in res[indx][3]])
+        res[indx][2] = float(res[indx][2])
 
 
     for i in res:
@@ -71,6 +77,7 @@ def lambda_handler(event, context):
     response['statusCode']=200
     response['headers']={}
     response['headers']['Content-Type'] = 'application/json'
+    response['headers']['Access-Control-Allow-Origin'] = '*'
 
     respDict = {}
     respDict['solutions'] = res
@@ -166,19 +173,26 @@ def getFoodByTag(tag):
     print('cde', tag)
     return getPescetarianFood()
 
-def aggregateResults(rName = None, foodName = None, tag = None, calories = None):
-    print(tag)
+def aggregateResults(rName = None, foodName = None, tag = None, tag2 = None, tag3 = None, calories = None):
     foodIdSet = set()
     results = []
-    if rName!="":
+    print(rName, foodName, tag, tag2, tag3)
+    if rName and rName!="":
         result = searchFoodByRestaurantName(rName)
         foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
-    if foodName!="":
+    if foodName and foodName!="":
+        print("reached")
         result = searchFoodByName(foodName)
         foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
-    if tag != "":
+    if tag and tag != "":
         result = getFoodByTag(tag)
         foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
+    if tag2 and tag2 != "":
+        result = getFoodByTag(tag2)
+        foodIdSet = foodIdSet.intersection(result) if foodIdSet else result
+    if tag3 and tag3 != "":
+        result = getFoodByTag(tag3)
+        foodIdSet = foodIdSet.intersection(result) if foodIdSet else result                
     if len(foodIdSet) > 0:
         for foodId in foodIdSet:
             results.append(getFoodDetails(foodId))
@@ -201,3 +215,5 @@ def getIngredientList(foodId):
     for row in rows:
         results.append(row[0])
     return results
+
+print(aggregateResults(tag='vegan',rName='Doaba'))
