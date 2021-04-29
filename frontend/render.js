@@ -189,6 +189,7 @@ function getReviews(){
             // div = document.getElementById('reviewsDiv');
 
             // implement showing just 5 random reviews. 
+
             for (i = 0; i < res.data.review.length; i++) {
                 var review = res.data.review[i];
                 console.log("i-th review : ", review);
@@ -196,6 +197,16 @@ function getReviews(){
                 // var str = '<p>'+review+'</p>';
                 div.insertAdjacentHTML('beforeend', str);
             }
+            
+            // for(i = 0; i < 10; i++) {
+            //     t = Math.random() * (res.data.review.length-1);
+            //     var review = res.data.review[i];
+            //     console.log("i-th review : ", review);
+            //     str = '<div class="card card-rest-review"><div class="card-body"><p class="card-text">' + review + '</p></div></div>';
+            //     // var str = '<p>'+review+'</p>';
+            //     div.insertAdjacentHTML('beforeend', str);
+            // }
+
           }
 
     });
