@@ -38,11 +38,13 @@
         /* Center vertically and horizontally */
         position: absolute;
         top: 30%;
-        left: 35%;
+        left: 30%;
         margin: -25px 0 0 -25px; /* apply negative top and left margins to truly center the element */
         text-align: center;
         border-radius: 25px;
         padding:15px;
+        border-style: solid;
+        border-color: black;
       }
 
       .black-button {
@@ -54,11 +56,24 @@
         height: 100vh;
         width: 100vw;    
       }
+      h1 {
+        text-align: center;
+        font-size:100px;
+       -webkit-text-stroke: 1px black;
+       color: white;
+       text-shadow:
+           3px 3px 0 #000,
+         -1px -1px 0 #000,  
+          1px -1px 0 #000,
+          -1px 1px 0 #000,
+           1px 1px 0 #000;
+      }
 
   </style>
 
   <body>
     <main role="main" class="container">
+        <h1>RestoRec</h1>
         <div class="child"> 
           <div class="col">
             <div class="row-sm" style="height: 30%;">

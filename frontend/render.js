@@ -60,9 +60,7 @@ function foodFilter(){
     newr = localStorage.getItem('filteredFoodRes');
     console.log('checkNew : ', newr);
     var res = JSON.parse(newr);
-    //console.log('checkNew : ', res.data.solutions);
     div = document.getElementById('filterResults');
-    // div.innerHTML = "";
     console.log("Inside foodFilter");
     document.getElementById("filterResults").hidden = false;
     console.log(res.data.solutions[0]);
@@ -107,7 +105,9 @@ function addItem(objButton){
           console.log(res);
           if(res.status==200){
             console.log('res : ', res);
-            console.log(typeof res);    
+            console.log(typeof res);  
+            alert("Item added!");
+            window.location.href='./food.html'; 
         }
 
     });
@@ -172,7 +172,6 @@ function getReviews(){
 
     var params = {"Content-Type" : "application/json" };
 
-    // TODO : change name of apiG function
     apigClient.getreviewPost(params,body,additionalParams).then(function(res){
           console.log(res);
           if(res.status==200){
@@ -186,10 +185,8 @@ function getReviews(){
              
             res = JSON.parse(newr);
             console.log('RES, REVIEW : ', res);
-            // div = document.getElementById('reviewsDiv');
 
-            // implement showing just 5 random reviews. 
-
+            
             for (i = 0; i < res.data.review.length; i++) {
                 var review = res.data.review[i];
                 console.log("i-th review : ", review);
@@ -197,6 +194,8 @@ function getReviews(){
                 // var str = '<p>'+review+'</p>';
                 div.insertAdjacentHTML('beforeend', str);
             }
+
+            // implement showing just 5 random reviews. 
 
             // for(i = 0; i < 10; i++) {
             //     t = Math.random() * (res.data.review.length-1);
@@ -233,26 +232,10 @@ function restFilter(){
         console.log(typeof rName);
         console.log(typeof foodName);
         console.log(typeof price);
-        // var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rName+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
-        // var str = '<div class="row"><div class="col-sm">'+rName+'</div><div class="col-sm">'+foodName+'</div><div class="col-sm">'+price+'$</div></div>';
         var str = '<div class="card card-rest-menu"><div class="card-body"><h5 class="card-title">' + foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         div.insertAdjacentHTML('beforeend', str);
     }
     
-
-    // newr = localStorage.getItem('reviewsResp');
-    // res = JSON.parse(newr);
-    // console.log('RES, REVIEW : ', res);
-    // div = document.getElementById('reviewsDiv');
-
-    // for (i = 0; i < res.data.review.length; i++) {
-    //     var review = res.data.review[i];
-    //     console.log("i-th review : ", review);
-
-    //     var str = '<div class="card card-rest-review"><div class="card-body"><p class="card-title">' +review+ '</p></div></div>';
-    //     // var str = '<p>'+review+'</p>';
-    //     div.insertAdjacentHTML('beforeend', str);
-    // }
 
 }
 
