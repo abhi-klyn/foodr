@@ -75,10 +75,7 @@ function foodFilter(){
         console.log(typeof foodName);
         console.log(typeof price);
         console.log(typeof foodid);
-
-        var rNameForId = rName.split(" ");
-        rNameForId = rNameForId.join("_");
-        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value='+rNameForId+'>' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
+        var str = '<div class="card card-rest"><div class="card-body"><h5 class="card-title">' +foodName+ '</h5><button type="button" class="btn btn-secondary" onclick="onRestaurantFilter(this)" value="'+rName+'">' +rName+ '</button><br><br><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         console.log('about to add');
         div.insertAdjacentHTML('beforeend', str);
     }
@@ -107,7 +104,7 @@ function addItem(objButton){
             console.log('res : ', res);
             console.log(typeof res);  
             alert("Item added!");
-            window.location.href='./food.html'; 
+            window.location.href='./restaurant.html'; 
         }
 
     });
@@ -119,37 +116,9 @@ function onRestaurantFilter(objButton){
     var rName = objButton.value;
     rName = rName.split("_");
     rName = rName.join(" ");
-    console.log('HI : rName : ', rName);
+    // console.log('HI : rName : ', rName);
     localStorage.setItem('rNameItem', rName);
-
-    var apigClient = apigClientFactory.newClient(
-        {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
-    );
-
-    var additionalParams = {headers: {
-        'Content-Type':"application/json"
-    }};
-
-    var params = {"Content-Type" : "application/json" };
-    var body = {"foodName":"", "rName":rName, "tag":"","tag2":"","tag3":"","calories":""};
-    console.log('body : ', body);
-
-    // API code to get the food 
-    apigClient.searchPost(params,body,additionalParams).then(function(res){
-          console.log(res);
-          if(res.status==200){
-            console.log('RES : ', res);
-            console.log(typeof res);
-            var myJSON = JSON.stringify(res);
-            console.log("JSON: ", myJSON)
-            localStorage.setItem('filteredRestFoodResp', myJSON);
-            newr = localStorage.getItem('filteredRestFoodResp');
-            console.log('checkNew : ', newr);
-            window.location.href='./restaurant.html';            
-          }
-
-    });
-
+    window.location.href='./restaurant.html';
 }
 
 function getReviews(){
@@ -215,23 +184,59 @@ function getReviews(){
 function restFilter(){
 
     rName = localStorage.getItem('rNameItem');
+    console.log('rName : ', rName);
+
+    var apigClient = apigClientFactory.newClient(
+        {apiKey: "y1yJqKthiV3ceJlZu4Kps6XYcPpq9uf2aHPWOfsY"}
+    );
+
+    var additionalParams = {headers: {
+        'Content-Type':"application/json"
+    }};
+
+    var params = {"Content-Type" : "application/json" };
+    var body = {"foodName":"", "rName":rName, "tag":"","tag2":"","tag3":"","calories":""};
+    console.log('body : ', body);
+
+    // API code to get the food 
+    apigClient.searchPost(params,body,additionalParams).then(function(res){
+          console.log(res);
+          if(res.status==200){
+            // console.log('RES : ', res);
+            console.log(typeof res);
+            var myJSON = JSON.stringify(res);
+            // console.log("JSON: ", myJSON)
+            localStorage.setItem('filteredRestFoodResp', myJSON);
+            newr = localStorage.getItem('filteredRestFoodResp');
+            // console.log('checkNew : ', newr);
+          }
+
+    });
+    
     document.getElementById('restHeading').innerHTML = rName
     document.getElementById('restHeading').hidden = false;
     newr = localStorage.getItem('filteredRestFoodResp');
+    console.log('newr : ', typeof newr);
+    console.log('res 1 : ', typeof res);
     var res = JSON.parse(newr);
-    div = document.getElementById('restMenuDiv');
-
-    console.log("Inside finalCart");
+    console.log('res 2 : ', typeof res);
+    
+    var div = document.getElementById('refreshMenu');
+    var btnStr = '<button value="'+rName+'" onclick="onRestaurantFilter(this)" type="button" class="btn btn-secondary" style="background-color: black;">Refresh Menu</button>';
+    div.insertAdjacentHTML('beforeend', btnStr);
+    console.log("RESTAURANT PAGE!");
     console.log(res.data.solutions[0]);
+    div = document.getElementById('restMenuDiv');
     for (i = 0; i < res.data.solutions.length; i++) {
         var rName = res.data.solutions[i][0];
         var foodName = res.data.solutions[i][1];
         var price = res.data.solutions[i][2];
         var ingredients = res.data.solutions[i][3];
         var foodid = res.data.solutions[i][4];
-        console.log(typeof rName);
-        console.log(typeof foodName);
-        console.log(typeof price);
+        // console.log(typeof rName);
+        // console.log(typeof foodName);
+        // console.log(typeof price);
+        console.log('details : ', rName,foodName,price);
         var str = '<div class="card card-rest-menu"><div class="card-body"><h5 class="card-title">' + foodName+ '</h5><h6 class="card-subtitle mb-2 text-muted">' +price+ '$</h6><p class="card-text">' + ingredients + '</p><button onclick="addItem(this)" value="'+foodid+'"type="button" class="btn btn-secondary" style="background-color: black;">Add</button></div></div>';
         div.insertAdjacentHTML('beforeend', str);
     }
@@ -288,7 +293,7 @@ function finalCart(){
     }
     console.log('TOTAL : ', total);
     console.log(typeof total);
-    totalStr = '<div class="row">Your total amount is '+total.toString()+'$</div>';
+    totalStr = '<br><div class="row" style="font-weight: bold;">Your total amount is '+total.toString()+'$</div>';
     div.insertAdjacentHTML('beforeend', totalStr);
 
 }
