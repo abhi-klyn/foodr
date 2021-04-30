@@ -11,7 +11,7 @@
     <title>Restaurant page</title>
     <script src="render.js"></script>
     <!-- <script type="text/javascript" src="./assets/js/sdk/lib/"></script> -->
-    <!-- <script type="text/javascript" src="./assets/js/sdk/lib/axios/dist/axios.standalone.js"></script> -->
+    <script type="text/javascript" src="./assets/js/sdk/lib/axios/dist/axios.standalone.js"></script>
     <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
     <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
     <script type="text/javascript" src="./assets/js/sdk/lib/CryptoJS/components/hmac.js"></script>
@@ -24,6 +24,9 @@
     <script type="text/javascript" src="./assets/js/sdk/apigClient.js"></script>
   </head>
   <style type="text/css">
+    body {
+      background-image: url('food_bg.jpeg');
+      }
     .parent {
         width: 80%;
         height: 60%;
@@ -40,56 +43,69 @@
         width: 40rem; 
         border-style: solid; 
         border-color: black;
+        padding: 25px;
+      }
 
+      .card-rest-review{
+        display: inline-block;
+        background:#ffc34d; 
+        width: 40rem; 
+        border-style: solid; 
+        border-color: black;
+      }
+
+      .card-rest-menu{
+        display: inline-block;
+        background:#ffd480; 
+        width: 40rem; 
+        border-style: solid; 
+        border-color: black;
       }
   </style>
-  <body>
+  <body onload="restFilter()">
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
-
     <div class="parent">
       <div class="col">
-        <div class="row-sm">
-      <!-- Need to add more divs dynammically over here to display food items -->
 
-          <div class="card card-rest" >
-            <div class="card-body">
-              <h5 class="card-title">Pita bread</h5>
-              <h6 class="card-subtitle mb-2 text-muted">20$</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. </p>
-              <!-- <a href="#" class="btn btn-primary">Add</a> -->
-              <button type="button" class="btn btn-secondary" style="background-color: black;">Add</button>
-            </div>
-          </div>
-          <div class="card card-rest">
-            <div class="card-body">
-              <h5 class="card-title">Pita bread</h5>
-              <h6 class="card-subtitle mb-2 text-muted">20$</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <!-- <a href="#" class="btn btn-primary">Add</a> -->
-              <button type="button" class="btn btn-secondary" style="background-color: black;">Add</button>
-            </div>
-          </div>
+        <!-- Menu item div -->
+        <div id="restMenuDiv" class="row-sm">
+          <h1 id="restHeading" hidden="true" style="color: white;">Rest Name here</h1><br><br>
+          <!-- Need to add more divs dynammically over here to display food items -->
+          <h3 style="color: white;">Menu</h3>
         </div>
+
+        <!-- Reviews div -->
+        <br><br><br>
+        <button onclick="getReviews()" type="button" class="btn btn-secondary" style="background-color: black;">View Reviews</button><br><br>
+        <div id="reviewsDiv" class="row-sm"> 
+        </div><br><br><br>
+        
+        <!-- Add Review div -->
+        <div id="addReviewDiv" class="card-rest row-sm" style="background:#ffc34d;">
+          <!-- <div class="row-sm row-box"> -->
+            <textarea id="custReview" name="custReview" rows="4" cols="60"></textarea>
+            <button onclick="onAddReview()" type="button" class="btn btn-secondary" style="background-color: black;">Add Review</button> 
+          <!-- </div> -->
+        </div><br><br>
+
+        <div id="reservationDiv" class="card-rest row-sm" style="background:#e69900;">
+            <label for="rDate">Date</label>
+            <input type="date" id="rDate" name="rDate"><br><br>
+            <label for="rTime">Time</label>
+            <input type="time" id="rTime" name="rTime"><br><br>
+            <button onclick="makeReservation()" type="button" class="btn btn-secondary" style="background-color: black;">Make a Reservation</button> 
+        </div>
+
         <div class="row-sm" style="padding: 20px">
-          <button type="button" class="btn btn-secondary" style="background-color: black;">Checkout</button> 
+          <button onclick="onCheckout()" type="button" class="btn btn-secondary" style="background-color: black;">Checkout</button> 
         </div>
         
       </div>
       
     </div>
-      
 
-
-  
-      
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    -->
   </body>
 </html>
