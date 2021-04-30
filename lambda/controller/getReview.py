@@ -6,14 +6,14 @@ import boto3
 
 # rm -rf ~/Desktop/function.zip
 # zip -r9 ~/Desktop/function.zip .
-endpoint = 'fooddb.ccykv42klvyg.us-east-1.rds.amazonaws.com'
+endpoint = 'food.c3eucazhixwr.us-east-1.rds.amazonaws.com'
 username = 'admin'
 password = 'Columbia123'
 database_name = 'food'
 
 #Connection
 connection = pymysql.connect(host=endpoint, user=username,
-    passwd=password, db=database_name)
+    passwd=password, db=database_name, autocommit=True)
 
 def lambda_handler(event, context):
 
@@ -49,4 +49,4 @@ def getReviews(restaurantName=None):
         reviews.append(r[0])
     return reviews
 
-print(getReviews('Sushi Sushi'))
+print(getReviews('Doaba Deli'))
