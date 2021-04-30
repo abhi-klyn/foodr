@@ -8,9 +8,10 @@ username = 'admin'
 password = 'Columbia123'
 database_name = 'food'
 
-#Connection
+# Connection
 connection = pymysql.connect(host=endpoint, user=username,
-    passwd=password, db=database_name)
+                             passwd=password, db=database_name)
+
 
 def lambda_handler(event, context):
     cursor = connection.cursor()
@@ -21,6 +22,7 @@ def lambda_handler(event, context):
     for row in rows:
         print("{0} {1}".format(row[0], row[1]))
 
+
 def insertQuery(query):
     try:
         cursor = connection.cursor()
@@ -30,8 +32,12 @@ def insertQuery(query):
     except:
         print("Unexpected error:", sys.exc_info()[0])
 
+
 def addToCart(foodId, emailId):
     if not foodId or not emailId:
         return False
-    insertQuery('INSERT INTO orders(email, foodid) VALUES (\'{}\', \'{}\')'.format(emailId, foodId))
+    insertQuery('INSERT INTO orders(email, foodid) VALUES (\'{}\', \'{}\')'.format(
+        emailId, foodId))
+
+
 addToCart(2, 'abhi.klyn@gmail.com')

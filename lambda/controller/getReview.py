@@ -11,9 +11,10 @@ username = 'admin'
 password = 'Columbia123'
 database_name = 'food'
 
-#Connection
+# Connection
 connection = pymysql.connect(host=endpoint, user=username,
-    passwd=password, db=database_name, autocommit=True)
+                             passwd=password, db=database_name, autocommit=True)
+
 
 def lambda_handler(event, context):
 
@@ -21,6 +22,7 @@ def lambda_handler(event, context):
     response = []
 
     return response
+
 
 def insertQuery(query):
     try:
@@ -30,6 +32,7 @@ def insertQuery(query):
         return True
     except:
         print("Unexpected error:", sys.exc_info()[0])
+
 
 def runQuery(query):
     try:
@@ -42,11 +45,15 @@ def runQuery(query):
 # Takses a restaurant name and gives revies in list
 # input: 'Sushi Sushi'
 # Output: ['good Asian food', 'pho is good']
+
+
 def getReviews(restaurantName=None):
-    rows = runQuery('SELECT review FROM reviews WHERE restaurantname = \'{}\''.format(restaurantName))
+    rows = runQuery(
+        'SELECT review FROM reviews WHERE restaurantname = \'{}\''.format(restaurantName))
     reviews = []
     for r in rows:
         reviews.append(r[0])
     return reviews
+
 
 print(getReviews('Doaba Deli'))
